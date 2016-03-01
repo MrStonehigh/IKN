@@ -25,11 +25,12 @@ void receiveFile(string fileName, int socketfd);
 int main(int argc, char *argv[])
 {
 	int clientsocket, fileSize;
-	string IP="10.0.0.2";
-	//cout<<"Indtast IP-adresse"<<endl;
-	//cin>>IP;
+	string IP;
+	
 	struct sockaddr_in serv_addr;
 	struct hostent *server;
+	string serverName =“Superman”, Message_out, Message_in;
+	
 
 
 	clientsocket=socket(AF_INET, SOCK_STREAM, 0);
@@ -37,28 +38,31 @@ int main(int argc, char *argv[])
 	{
 		error("Error opening socket");
 	}
-	//server=gethostbyname(argv[1]);
-	//bzero((char *) &serv_addr, sizeof(serv_addr));
-	serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	cout<<"Indtast IP-adresse"<<endl;
+	cin>>IP;
+	
+	//Setting up server address struct
+	memset(&serv_addr, 0, sizeof(serv_addr));
+	serv_addr.sin_addr.s_addr = inet_addr(IP);
 	serv_addr.sin_family=AF_INET;
 	serv_addr.sin_port=htons(PORT);
 
-	//Setting up server address struct
-	memset(&serv_addr, 0, sizeof(serv_addr));
+	
 
-	bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
+	// SKAL DEN HER OVERHOVEDET BRUGES? bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
 
 	//serv_addr.sin_addr.s_addr=IP;
 	//serv_addr.sin_port=htons(PORT);
 
-	connect(clientsocket, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
-
-
-	string Message_out, Message_in;
+	//connect(clientsocket, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+	if(connect(clientsocket, &serv_addr, sizeof(serv_addr))==-1)
+		{
+			error(“Error connecting to server”);
+			return erno;
+		}
+	
+	cout<<“Hvilken fil vil du hente? Hvis filen findes i en undermappe, skriv da stinavnet:”<< endl;
 	cin>>Message_out;
-	string serverName ("Superman");
-	//clientsocket.connect(serverName,PORT);
-	//connect(clientsocket,serverName,PORT);
 
 
 	receiveFile(Message_out,clientsocket);
@@ -86,7 +90,8 @@ void receiveFile(string fileName, int sockfd)
 
 	if (!check_File_Exists(fileName))
 	{
-		error("File does not exist");
+		error("Filen findes ikke”);
+		return erno;
 	}
 
 
