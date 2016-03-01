@@ -1,5 +1,5 @@
 Name: LIB
 Description: 
 Version: 0.1
-Libs: -L"/root/Projects/Exercise_8_c++/LIB/bin/Release" -l
-Cflags: -I"/root/Projects/Exercise_8_c++/LIB"
+Libs: -L"/root/Git/IKN/Exercise 8/Exercise_8_c++/LIB/bin/Debug" -l
+Cflags: -I"/root/Git/IKN/Exercise 8/Exercise_8_c++/LIB"

@@ -23,13 +23,25 @@ void receiveFile(string fileName, int socketfd);
 
 int main(int argc, char *argv[])
 {
-	// TO DO Your own code
+	int clientsocket, fileSize;
+	clientsocket==socket(AF_INET, SOCK_STREAM, 0);
+	string Message_out, Message_in;
+	cin>>Message_out;
+	string serverName ("Superman");
+	clientsocket.connect(serverName,PORT);
+
+
+
+	receiveFile(Message_out,serverName);
+
 }
 
 /**
- * Modtager filstørrelsen og udskriver meddelelsen: "Filen findes ikke" hvis størrelsen = 0
+ * Modtager filstørrelsen og udskriver meddelelsen: "Filen findes ikke" hvis 
+ * størrelsen = 0
  * ellers
- * Åbnes filen for at skrive de bytes som senere modtages fra serveren (HUSK kun selve filnavn)
+ * Åbnes filen for at skrive de bytes som senere modtages fra serveren 
+ * (HUSK kun selve filnavn)
  * Modtag og gem filen i blokke af 1000 bytes indtil alle bytes er modtaget.
  * Luk filen, samt input output streams
  *
@@ -38,6 +50,20 @@ int main(int argc, char *argv[])
  */
 void receiveFile(string fileName, int sockfd)
 {
-	// TO DO Your own code
+	if (!check_File_Exists(fileName))
+	{
+		error("File does not exist");
+	}
+
+	writeTextTCP(fileName, sockfd);
+	readTextTCP(Message_in,sockfd);
+	fileSize=getFileSizeTCP(sockfd);
+
+	int buffer[];
+
+	while (fileSize>BUFSIZE)
+	{
+		
+	}
 }
 
