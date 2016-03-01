@@ -1,0 +1,5 @@
+Name: LIB
+Description: 
+Version: 0.1
+Libs: -L"/home/ikn/Documents/IKN/Server/LIB/bin/Debug" -l
+Cflags: -I"/home/ikn/Documents/IKN/Server/LIB"
