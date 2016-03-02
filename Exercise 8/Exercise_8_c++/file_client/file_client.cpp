@@ -24,28 +24,30 @@ void receiveFile(string fileName, int socketfd);
 
 int main(int argc, char *argv[])
 {
-	int clientsocket, fileSize;
-	string IP;
-	
+	int clientsocket, fileSize, ERR;
+	char IP[]="128.0.0.1";
+
 	struct sockaddr_in serv_addr;
 	struct hostent *server;
-	string serverName =“Superman”, Message_out, Message_in;
-	
+	string serverName="Superman";
+	string Message_out, Message_in;
+
+	server = gethostbyname(IP);
 
 
 	clientsocket=socket(AF_INET, SOCK_STREAM, 0);
 	if (clientsocket < 0)
 	{
-		error("Error opening socket");
+		error("Fejl ved bygning af socket");
+		return clientsocket;
 	}
-	cout<<"Indtast IP-adresse"<<endl;
-	cin>>IP;
 	
 	//Setting up server address struct
-	memset(&serv_addr, 0, sizeof(serv_addr));
-	serv_addr.sin_addr.s_addr = inet_addr(IP);
 	serv_addr.sin_family=AF_INET;
 	serv_addr.sin_port=htons(PORT);
+	serv_addr.sin_addr.s_addr = inet_addr("128.0.0.1" );
+	memset(&serv_addr, 0, sizeof(serv_addr));
+
 
 	
 
@@ -55,13 +57,12 @@ int main(int argc, char *argv[])
 	//serv_addr.sin_port=htons(PORT);
 
 	//connect(clientsocket, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
-	if(connect(clientsocket, &serv_addr, sizeof(serv_addr))==-1)
+	if(connect(clientsocket,(struct sockaddr *) &serv_addr, sizeof(serv_addr))==-1)
 		{
-			error(“Error connecting to server”);
-			return erno;
+			error("Fejl ved forbindelse til server");
+			return ERR;
 		}
-	
-	cout<<“Hvilken fil vil du hente? Hvis filen findes i en undermappe, skriv da stinavnet:”<< endl;
+	cout<<"Hvilken fil vil du hente? Hvis filen findes i en undermappe, skriv da stinavnet:"<<endl;
 	cin>>Message_out;
 
 
@@ -90,8 +91,8 @@ void receiveFile(string fileName, int sockfd)
 
 	if (!check_File_Exists(fileName))
 	{
-		error("Filen findes ikke”);
-		return erno;
+		error("Filen findes ikke");
+		return;
 	}
 
 
