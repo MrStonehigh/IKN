@@ -24,49 +24,39 @@ void receiveFile(string fileName, int socketfd);
 
 int main(int argc, char *argv[])
 {
-	int clientsocket, fileSize, ERR;
-	char IP[]="128.0.0.1";
+	int clientsocket, fileSize;
+
 
 	struct sockaddr_in serv_addr;
 	struct hostent *server;
-	string serverName="Superman";
-	string Message_out, Message_in;
+	//string serverName="Superman";
 
-	server = gethostbyname(IP);
-
-
-	clientsocket=socket(AF_INET, SOCK_STREAM, 0);
+clientsocket=socket(AF_INET, SOCK_STREAM, 0);
 	if (clientsocket < 0)
 	{
 		error("Fejl ved bygning af socket");
-		return clientsocket;
 	}
 	
-	//Setting up server address struct
-	serv_addr.sin_family=AF_INET;
+	server = gethostbyname(argv[1]);
+	 if(server == NULL)
+    {
+        error("Host does not exist");
+    }
+
+    //Setting up server address struct
+    bzero((char *) &serv_addr, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    bcopy((char *) server -> h_addr, (char *) &serv_addr.sin_addr.s_addr, server -> h_length);
 	serv_addr.sin_port=htons(PORT);
-	serv_addr.sin_addr.s_addr = inet_addr("128.0.0.1" );
-	memset(&serv_addr, 0, sizeof(serv_addr));
 
 
-	
-
-	// SKAL DEN HER OVERHOVEDET BRUGES? bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
-
-	//serv_addr.sin_addr.s_addr=IP;
-	//serv_addr.sin_port=htons(PORT);
-
-	//connect(clientsocket, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
 	if(connect(clientsocket,(struct sockaddr *) &serv_addr, sizeof(serv_addr))==-1)
 		{
 			error("Fejl ved forbindelse til server");
-			return ERR;
 		}
-	cout<<"Hvilken fil vil du hente? Hvis filen findes i en undermappe, skriv da stinavnet:"<<endl;
-	cin>>Message_out;
 
 
-	receiveFile(Message_out,clientsocket);
+	receiveFile(argv[1],clientsocket);
 
 	close(clientsocket);
 
