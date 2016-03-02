@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <string>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -71,7 +70,6 @@ int main(int argc, char *argv[])
 	}
 		
 	fileName = readTextTCP(fileName, newsock);
-	extractFileName(fileName);
 	if(check_File_Exists(fileName) == 0)
 	{
 		writeTextTCP("File does not exist", newsock);
@@ -81,7 +79,8 @@ int main(int argc, char *argv[])
 
 	sendFile(fileName, sizeTCP, newsock);
 
-	close(sock);
+	close(newsock);
+
 	return 0;
 }
 
@@ -94,36 +93,39 @@ int main(int argc, char *argv[])
 	 */
 void sendFile(string fileName, long fileSize, int outToClient)
 {
-	 char * buffer = new char [fileSize];
-	 char * buf = new char[1000];
-	 int newfileSize = 0;
+	 int bufferSize = 1000;
+	 char * buffer = new char [bufferSize];
+	 char * sizeBuffer = new char [256];
 	
-	 string fileSize_s = to_string(fileSize);
+	
+	 
+	 sprintf(sizeBuffer, "%ld",fileSize);
+	
 
-	  writeTextTCP(fileSize_s, outToClient);
+	 writeTextTCP(sizeBuffer, outToClient);
+	
+	 std::ifstream FileIn;
+	 FileIn.open(fileName.c_str(), std::ios::in | std::ios::binary);
 
-	 std::fstream fs;
-	 fs.open(fileName, ... );
-	 fs.read(buffer, fileSize);
-
-	 newfileSize = fileSize;
-
-	 buf = buffer[]
-
-	 while(newfileSize > 0)
+	 if(fileSize > 0)
 	 {
-
-	 	if(newfileSize < 1000)
+	 	if(FileIn.is_open())
 	 	{
-	 		write 
-	 		break;
+	 		int i;
+	 		for(i=0; i<fileSize-bufferSize;i=+bufferSize)
+	 		{
+	 			FileIn.read(buffer,bufferSize);
+	 			write(outToClient, buffer, bufferSize);
+	 		}
+	 		FileIn.read(buffer, fileSize - i+bufferSize);
+	 		write(outToClient, buffer, fileSize - i+bufferSize);
 	 	}
-		 write
-	
-		 newfileSize = newfileSize-1000;
-	 };
+	 	else
+	 	error("Could not open file");
+	}
 
+	FileIn.close();
 
-
+	delete [] buffer;
 }
 
