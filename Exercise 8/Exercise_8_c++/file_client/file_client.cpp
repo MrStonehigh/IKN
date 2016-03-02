@@ -24,12 +24,19 @@ void receiveFile(string fileName, int socketfd);
 
 int main(int argc, char *argv[])
 {
+
+	if(argc>3)
+	{
+		cout<<argv[1]<<argv[2]<<endl;
+		error("Invalid amount of arguments");
+	}
+
 	int clientsocket, fileSize;
 
 
 	struct sockaddr_in serv_addr;
 	struct hostent *server;
-	//string serverName="Superman";
+
 
 clientsocket=socket(AF_INET, SOCK_STREAM, 0);
 	if (clientsocket < 0)
@@ -56,10 +63,10 @@ clientsocket=socket(AF_INET, SOCK_STREAM, 0);
 		}
 
 
-	receiveFile(argv[1],clientsocket);
+	receiveFile(argv[2],clientsocket);
 
 	close(clientsocket);
-
+	return 0;
 }
 
 /**
@@ -76,21 +83,14 @@ clientsocket=socket(AF_INET, SOCK_STREAM, 0);
  */
 void receiveFile(string fileName, int sockfd)
 {
-	string Message_in;
 	int fileSize;
-
-	if (!check_File_Exists(fileName))
-	{
-		error("Filen findes ikke");
-		return;
-	}
-
+	string Message_in;
 
 	writeTextTCP(fileName, sockfd);
-	readTextTCP(Message_in,sockfd);
+	Message_in=readTextTCP(Message_in,sockfd);
 	fileSize=getFileSizeTCP(sockfd);
 
-	int buffer[fileSize];
+	long int buffer[fileSize];
 
 
 
@@ -101,6 +101,7 @@ void receiveFile(string fileName, int sockfd)
 	}
 	read(sockfd,buffer,fileSize);
 
+	cout << "Message Recieved: "<< Message_in << endl;
 
 		
 }
