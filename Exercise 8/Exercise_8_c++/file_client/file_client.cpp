@@ -62,10 +62,14 @@ clientsocket=socket(AF_INET, SOCK_STREAM, 0);
 			error("Fejl ved forbindelse til server");
 		}
 
-
+		cout << "Connected to server" << endl;
+	
 	receiveFile(argv[2],clientsocket);
 
+	cout << "Closing connection" << endl;
 	close(clientsocket);
+
+	cout << "Connection closed" << endl;
 	return 0;
 }
 
@@ -83,16 +87,20 @@ clientsocket=socket(AF_INET, SOCK_STREAM, 0);
  */
 void receiveFile(string fileName, int sockfd)
 {
+	cout << "Inside receiveCommand" << endl;
 	int fileSize;
+	cout << "Debug1" << endl;
 	string Message_in;
-
+	cout << "Debug2" << endl;
 	writeTextTCP(fileName, sockfd);
+	cout << "Debug3" << endl;
 	Message_in=readTextTCP(Message_in,sockfd);
+	cout << "Debug4" << endl;
 	fileSize=getFileSizeTCP(sockfd);
-
+	cout << "Debug5" << endl;
 	long int buffer[fileSize];
 
-
+	cout << "Message in transfer" << endl;
 
 	while (fileSize>BUFSIZE)
 	{
