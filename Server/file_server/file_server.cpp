@@ -35,7 +35,7 @@ void sendFile(string fileName, long fileSize, int outToClient);
 int main(int argc, char *argv[])
 {
 	int sock, newsock, portnumber, n;
-	long sizeTCP;
+	long int sizeTCP;
 	socklen_t client_size;
 	socklen_t server_size;
 	string fileName;
@@ -68,18 +68,21 @@ int main(int argc, char *argv[])
 	{
 		error("Error on accepting");
 	}
-		
+		cout << "Accepting new socket" << endl;
 	fileName = readTextTCP(fileName, newsock);
+cout << "Getting filename" << endl;
 	if(check_File_Exists(fileName) == 0)
 	{
 		writeTextTCP("File does not exist", newsock);
 		error("File does not exist");
 	}
-	sizeTCP = getFileSizeTCP(newsock);
-
+	cout << "File does exist" << endl;
+	sizeTCP = getFileSizeTCP(newsock);// HER GÅR DET GALT!! (Før: newsock Nu: fileName)
+	cout << "Sending file" << endl;
 	sendFile(fileName, sizeTCP, newsock);
-
+	cout << "File send" << endl;
 	close(newsock);
+	cout << "Closing newsocket" << endl;
 
 	return 0;
 }
@@ -93,6 +96,7 @@ int main(int argc, char *argv[])
 	 */
 void sendFile(string fileName, long fileSize, int outToClient)
 {
+	 cout << "Inside sendFile" << endl;
 	 int bufferSize = 1000;
 	 char * buffer = new char [bufferSize];
 	 char * sizeBuffer = new char [256];
