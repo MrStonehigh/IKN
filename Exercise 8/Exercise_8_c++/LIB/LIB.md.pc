@@ -1,5 +1,0 @@
-Name: LIB
-Description: 
-Version: 0.1
-Libs: -L"/root/Documents/IKN/Exercise 8/Exercise_8_c++/LIB/bin/Debug" -l
-Cflags: -I"/root/Documents/IKN/Exercise 8/Exercise_8_c++/LIB"

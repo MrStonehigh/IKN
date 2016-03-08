@@ -94,8 +94,8 @@ void sendFile(string fileName, long fileSize, int outToClient)
 {
 	 cout << "Inside sendFile" << endl;
 	 int bufferSize = 1000;
-	 char * buffer = new char [bufferSize];
-	 char * sizeBuffer = new char [256];
+	 char buffer[bufferSize];
+	 char sizeBuffer[256];
 	
 	
 	 cout << "Sending file" << endl;
@@ -106,33 +106,36 @@ void sendFile(string fileName, long fileSize, int outToClient)
 	
 	 std::ifstream FileIn;
 	 FileIn.open(fileName.c_str(), std::ios::in | std::ios::binary);
+	 int n1=0;
 
 	 if(fileSize > 0)
 	 {
 	 	if(FileIn.is_open())
 	 	{
-	 		/*int i;
-	 		for(i=0; i<fileSize-bufferSize;i+=bufferSize)
-	 		{
-	 			FileIn.read(buffer,bufferSize);
-	 			write(outToClient, buffer, bufferSize);
-	 		}
-	 		FileIn.read(buffer, fileSize - i+bufferSize);
-	 		write(outToClient, buffer, fileSize - i+bufferSize);*/
+	 		
+	 		long rest = fileSize;
 
-	 		while(fileSize>bufferSize)
+	 		//while(fileSize>bufferSize)
+	 		while (rest > 0)
 	 		{
-	 		FileIn.read(buffer,bufferSize);
-	 		write(outToClient, buffer, bufferSize);
-	 		fileSize -=1000;
+	 		   	int count = FileIn.readsome(buffer,bufferSize);
+
+	 		   	if(count >= 0)
+	 		   	{
+	 		   //int count = read(outToClient,buffer,bufferSize);
+	 		   write(outToClient, buffer, count);
+	 		   rest -= count;
+	 		    cout << count << ", " << rest << endl;
+	 		    }
 	 		}
+	 		   
 	 	}
 	 	else
 	 	error("Could not open file");
 	}
 
 	FileIn.close();
-	delete [] sizeBuffer;
-	delete [] buffer;
+	//delete [] sizeBuffer;
+	//delete [] buffer;
 }
 
