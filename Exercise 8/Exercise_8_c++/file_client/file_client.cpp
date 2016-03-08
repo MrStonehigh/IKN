@@ -87,6 +87,10 @@ clientsocket=socket(AF_INET, SOCK_STREAM, 0);
  */
 void receiveFile(string fileName, int sockfd)
 {
+	
+	std::ofstream FileIn;
+FileIn.open(fileName.c_str(),std::ofstream::binary);
+
 	cout << "Inside receiveCommand" << endl;
 	int fileSize;
 	cout << "Debug1" << endl;
@@ -98,17 +102,19 @@ void receiveFile(string fileName, int sockfd)
 	cout << "Debug4" << endl;
 	fileSize=getFileSizeTCP(sockfd);
 	cout << "Debug5" << endl;
-	long int buffer[fileSize];
+	char * buffer = new char[fileSize];
 
 	cout << "Message in transfer" << endl;
 
 	while (fileSize>BUFSIZE)
 	{
 		read(sockfd,buffer,BUFSIZE);
+		FileIn.write(buffer,BUFSIZE);
 		fileSize-=1000;
 	}
 	read(sockfd,buffer,fileSize);
-
+	FileIn.write(buffer,BUFSIZE);
+	FileIn.close();
 	cout << "Message Recieved: "<< Message_in << endl;
 
 		
