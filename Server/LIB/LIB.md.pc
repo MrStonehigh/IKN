@@ -1,5 +1,5 @@
 Name: LIB
 Description: 
 Version: 0.1
-Libs: -L"/root/Git/IKN/Server/LIB/bin/Debug" -l
-Cflags: -I"/root/Git/IKN/Server/LIB"
+Libs: -L"/root/Documents/IKN/Server/LIB/bin/Debug" -l
+Cflags: -I"/root/Documents/IKN/Server/LIB"

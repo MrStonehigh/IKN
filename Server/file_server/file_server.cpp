@@ -43,8 +43,6 @@ int main(int argc, char *argv[])
 	struct sockaddr_in serv_addr, cli_addr;
 
 
-	char buffer[256];
-	bzero(buffer,1000);
 	sock = socket(AF_INET, SOCK_STREAM, 0); 
 	if (sock < 0 )
 	{
@@ -71,14 +69,12 @@ int main(int argc, char *argv[])
 		cout << "Accepting new socket" << endl;
 	fileName = readTextTCP(fileName, newsock);
 cout << "Getting filename" << endl;
-	if(check_File_Exists(fileName) == 0)
+	if((sizeTCP= check_File_Exists(fileName)) == 0)
 	{
 		writeTextTCP("File does not exist", newsock);
 		error("File does not exist");
 	}
 	cout << "File does exist" << endl;
-	sizeTCP = getFileSizeTCP(newsock);// HER GÅR DET GALT!! (Før: newsock Nu: fileName)
-	cout << "Sending file" << endl;
 	sendFile(fileName, sizeTCP, newsock);
 	cout << "File send" << endl;
 	close(newsock);
@@ -102,7 +98,7 @@ void sendFile(string fileName, long fileSize, int outToClient)
 	 char * sizeBuffer = new char [256];
 	
 	
-	 
+	 cout << "Sending file" << endl;
 	 sprintf(sizeBuffer, "%ld",fileSize);
 	
 
@@ -115,21 +111,28 @@ void sendFile(string fileName, long fileSize, int outToClient)
 	 {
 	 	if(FileIn.is_open())
 	 	{
-	 		int i;
-	 		for(i=0; i<fileSize-bufferSize;i=+bufferSize)
+	 		/*int i;
+	 		for(i=0; i<fileSize-bufferSize;i+=bufferSize)
 	 		{
 	 			FileIn.read(buffer,bufferSize);
 	 			write(outToClient, buffer, bufferSize);
 	 		}
 	 		FileIn.read(buffer, fileSize - i+bufferSize);
-	 		write(outToClient, buffer, fileSize - i+bufferSize);
+	 		write(outToClient, buffer, fileSize - i+bufferSize);*/
+
+	 		while(fileSize>bufferSize)
+	 		{
+	 		FileIn.read(buffer,bufferSize);
+	 		write(outToClient, buffer, bufferSize);
+	 		fileSize -=1000;
+	 		}
 	 	}
 	 	else
 	 	error("Could not open file");
 	}
 
 	FileIn.close();
-
+	delete [] sizeBuffer;
 	delete [] buffer;
 }
 
