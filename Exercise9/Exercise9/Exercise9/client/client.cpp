@@ -29,14 +29,18 @@ int main()
 	int clientsocket;
 	socklen_t serv_length;
  	clientsocket = socket(AF_INET,SOCK_DGRAM,0);
+ 	char ip[16];
+
+ 	cout<<"IP adress: ";
+ 	cin >>ip;
 
  	struct sockaddr_in serv_addr;
  	serv_addr.sin_family = AF_INET;
  	serv_addr.sin_port = htons(PORT);
- 	serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+ 	serv_addr.sin_addr.s_addr = inet_addr(ip);
  	serv_length=sizeof(serv_addr);
 
- 	cout<< "What information would you like to pull?" << endl
+ 	cout<< "What information would you like to pull?" << endl<<endl
  		<< "U/u: Uptime of server" << endl
  		<< "L/l: Load on server" << endl;
 
