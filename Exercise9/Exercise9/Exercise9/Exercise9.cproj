@@ -28,5 +28,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="client\client.cpp" />
+    <Compile Include="server\server.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="server\" />
   </ItemGroup>
 </Project>
