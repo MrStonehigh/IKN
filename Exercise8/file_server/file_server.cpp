@@ -115,17 +115,16 @@ void sendFile(string fileName, long fileSize, int outToClient)
 	 		
 	 		long rest = fileSize;
 
-	 		//while(fileSize>bufferSize)
 	 		while (rest > 0)
 	 		{
 	 		   	int count = FileIn.readsome(buffer,bufferSize);
 
 	 		   	if(count >= 0)
 	 		   	{
-	 		   //int count = read(outToClient,buffer,bufferSize);
+	 		   
 	 		   write(outToClient, buffer, count);
 	 		   rest -= count;
-	 		    cout << count << ", " << rest << endl;
+	 		  
 	 		    }
 	 		}
 	 		   
@@ -135,7 +134,5 @@ void sendFile(string fileName, long fileSize, int outToClient)
 	}
 
 	FileIn.close();
-	//delete [] sizeBuffer;
-	//delete [] buffer;
-}
+	}
 

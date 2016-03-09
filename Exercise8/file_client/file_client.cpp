@@ -91,16 +91,14 @@ void receiveFile(string fileName, int sockfd)
 	std::ofstream FileIn;
 FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
 
-	cout << "Inside receiveCommand" << endl;
 	int fileSize;
-	cout << "Debug1" << endl;
-	string Message_in;
-	cout << "Debug2" << endl;
 	writeTextTCP(fileName, sockfd);
-	cout << "Debug3" << endl;
 	fileSize=getFileSizeTCP(sockfd);
-	cout << "Filesize: = " << fileSize << endl;
-	cout << "Debug5" << endl;
+	if(fileSize==0);
+		{
+		error("File doesnt exist");
+		}
+	cout << "Filesize: = " << fileSize << " Bytes" << endl;
 	char buffer[BUFSIZE];
 
 	cout << "Message in transfer" << endl;
@@ -112,12 +110,10 @@ FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
 		int count =read(sockfd,buffer,BUFSIZE);
 		FileIn.write(buffer,count);
 		rest-=count;
-		cout << count << ", " << rest << endl;
 	}
 
 	FileIn.close();
-	cout << "Message Recieved: "<< Message_in << endl;
+	cout << "File Recieved "<< endl;
 
-	//delete [] buffer;
 }
 
