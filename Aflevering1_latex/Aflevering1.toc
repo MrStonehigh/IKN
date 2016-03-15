@@ -1,0 +1,3 @@
+\changetocdepth {2}
+\select@language {danish}
+\contentsline {chapter}{Indholdsfortegnelse}{2}{section*.1}
