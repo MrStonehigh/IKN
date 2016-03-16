@@ -1,0 +1,19 @@
+\chapter{TCP client}
+
+\section{Opgaveformulering}
+
+Der skal udvikles en client kørende i en anden virtuel Linux-maskine. Denne client
+skal kunne hente en fil fra den ovenfor beskrevne server. Client’en sender
+indledningsvis en tekststreng, som er indtastet af operatøren, til serveren.
+Tekststrengen skal indeholde et filnavn + en eventuel stiangivelse til en fil i serveren.
+Client’en skal modtage den ønskede fil fejlfrit fra serveren – eller udskrive en
+fejlmelding hvis filen ikke findes i serveren. Client-applikationen skal kunne startes fra
+en terminal med kommandoen:\\ \\
+\#./file\_client <file\_server’s ip-adr.> <[sti] + filnavn> (for C/C++ applikationers
+vedkommende)\\
+\#./file\_client.exe <file\_server’s ip-adr.> <[sti] + filnavn> (for C\# applikationers
+vedkommende)\\ 
+\#python file\_client.py <file\_server’s ip-adr.> <[sti] + filnavn> (for Python applikationers
+vedkommende)\\
+
+\section{TCP client}
