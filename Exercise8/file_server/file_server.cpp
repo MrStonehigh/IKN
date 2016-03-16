@@ -60,7 +60,8 @@ int main(int argc, char *argv[])
     {
     	error("Error on binding");
     }
-
+   
+   
     listen(sock,5); // Listing for an incomming connection. Queue size is 5. 
     client_size = sizeof(cli_addr); // Finding the client address' size
 	newsock = accept(sock, (struct sockaddr *) &cli_addr, &client_size); //Making af new socket from the incomming connection. 
