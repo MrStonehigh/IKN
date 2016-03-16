@@ -87,14 +87,13 @@ clientsocket=socket(AF_INET, SOCK_STREAM, 0);
  */
 void receiveFile(string fileName, int sockfd)
 {
-	
 	std::ofstream FileIn;
-FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
+	FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
 
 	int fileSize;
 	writeTextTCP(fileName, sockfd);
 	fileSize=getFileSizeTCP(sockfd);
-	if(fileSize==0);
+	if(fileSize == 0)
 		{
 		error("File doesnt exist");
 		}
