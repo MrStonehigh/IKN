@@ -99,11 +99,9 @@ void sendFile(string fileName, long fileSize, int outToClient)
 	 char buffer[bufferSize]; // making a char buffer with 1000 places
 	 char sizeBuffer[256]; // making another buffer
 	
-	
 	 cout << "Sending file" << endl;
 	 sprintf(sizeBuffer, "%ld",fileSize); // Tranforming our fileSize to a char and storing it in sizeBuffer. 
 	
-
 	 writeTextTCP(sizeBuffer, outToClient); // writing the fileSize to client
 	
 	 std::ifstream FileIn; // setting up our stream
@@ -113,27 +111,21 @@ void sendFile(string fileName, long fileSize, int outToClient)
 	 {
 	 	if(FileIn.is_open()) // checking if file is open. 
 	 	{
-	 		
 	 		long rest = fileSize;
-
 	 		while (rest > 0)
 	 		{
 	 		   	int count = FileIn.readsome(buffer,bufferSize); // Reading file 
-
 	 		   	if(count >= 0)
 	 		   	{
-	 		   
-	 		   write(outToClient, buffer, count); // sending file
-	 		   rest -= count;
-	 		  
+					write(outToClient, buffer, count); // sending file
+					rest -= count;
 	 		    }
 	 		}
-	 		   
 	 	}
 	 	else
 	 	error("Could not open file");
 	}
 
 	FileIn.close(); // closing our stream. 
-	}
+}
 
