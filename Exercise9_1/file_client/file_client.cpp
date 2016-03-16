@@ -52,6 +52,7 @@ int main()
  	else
 		error("Invalid input");
 	
+
 	recvfrom(clientsocket,msg,BUFFLENGTH,0,(struct sockaddr*) &serv_addr, &serv_length);
 
 	cout<<"Incoming Message:" << endl

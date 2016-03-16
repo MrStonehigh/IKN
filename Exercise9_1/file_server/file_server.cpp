@@ -14,13 +14,14 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-	int sock, portnumber, n;
+	int sock, portnumber, n, count;
 	portnumber = 9000;
 	socklen_t server_size;
 	socklen_t client_size;
 	int bufferSize = 1024;
 	char buffer[bufferSize];
 	string fileName;
+	string file;
 
 	struct sockaddr_in serv_addr, cli_addr;
 
@@ -60,12 +61,12 @@ int main(int argc, char *argv[])
 		{
 			case 'U':
 			case 'u':
-				fileName = "/proc/uptime";
+				fileName = "/proc/uptime"; 
 				FileIn.open(fileName.c_str(), std::ios::in);
 				if(FileIn.is_open())
 				{
 					cout << "Sending /proc/uptime" << endl;
-					FileIn.read(buffer, bufferSize);
+					getline(FileIn, file);
 				}
 				else
 				{
@@ -81,7 +82,7 @@ int main(int argc, char *argv[])
 				if(FileIn.is_open())
 				{
 					cout << "Sending /proc/loadavg" << endl;
-					FileIn.read(buffer, bufferSize);
+					getline(FileIn, file);
 				}
 				else
 				{
@@ -90,9 +91,11 @@ int main(int argc, char *argv[])
 	 			break;
 
 			default:
+					error("Wrong letter");
 				break;
 		}
-		n = sendto(sock, buffer, bufferSize, 0, (struct sockaddr *) &cli_addr, client_size);
+		n = sendto(sock, file.c_str(), file.length()+1, 0, (struct sockaddr *) &cli_addr, client_size);
+	
 		if(n < 0)
 		{
 			error("Error in sendTo");
