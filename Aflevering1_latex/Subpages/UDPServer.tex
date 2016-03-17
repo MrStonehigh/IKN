@@ -19,3 +19,13 @@ bogstaverne er lower case eller upper case skal være ligegyldigt.
 \section{UDP Server}
  
 UDP er en protokol som ikke giver garanti for at data kommer frem dvs. den er ustabil. UDP benytter ikke ordnet levering dvs. pakkerne ankommer ikke nødvendigvis i den rigtige rækkefølge til modtageren. 
+
+Ligesom vi gjorde ved TCP starter vi med at sætte en socket op. Vi benytter stadigvæk portnummer 9000 og binder dette til socket'en. 
+
+Vi venter indtil vi modtager en besked fra clienten. 
+
+Herefter laver vi en stream, som vi bruger til at åbne vores fil.
+
+Hvis vores besked indeholder U eller u åbner vi filen /proc/uptime hvorimod hvis beskeden indeholder L eller l åbner vi filen /proc/loadavg. Dette gøres ved at benytte en switch. 
+
+
