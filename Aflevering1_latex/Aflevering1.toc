@@ -11,7 +11,7 @@
 \contentsline {chapter}{\chapternumberline {4}UDP Server}{7}{chapter.4}
 \contentsline {section}{\numberline {4.1}Opgaveformulering}{7}{section.4.1}
 \contentsline {section}{\numberline {4.2}UDP Server}{7}{section.4.2}
-\contentsline {chapter}{\chapternumberline {5}UDP Client}{8}{chapter.5}
-\contentsline {section}{\numberline {5.1}Opgaveformulering}{8}{section.5.1}
-\contentsline {section}{\numberline {5.2}UDP Client}{8}{section.5.2}
-\contentsline {chapter}{\chapternumberline {6}Resultat}{9}{chapter.6}
+\contentsline {chapter}{\chapternumberline {5}UDP Client}{9}{chapter.5}
+\contentsline {section}{\numberline {5.1}Opgaveformulering}{9}{section.5.1}
+\contentsline {section}{\numberline {5.2}UDP Client}{9}{section.5.2}
+\contentsline {chapter}{\chapternumberline {6}Resultat}{10}{chapter.6}

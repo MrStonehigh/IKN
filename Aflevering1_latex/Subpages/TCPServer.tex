@@ -57,7 +57,7 @@ Da vores filnvn er en string benytter vi c++ funktinen \textit{c\_str()} til kon
 Vi tjekker for om filen eksisterer og om den er blevet åbnet korrekt.
 Hvis dette er tilfældet begynder vi at sende data til clienten. Dette gør vi ved at oprette en variabel kaldet rest som indeholder filstørrelsen. 
 I et while-loop tester vi for om rest er større end 0 dvs. om der er mere data der skal sendes. 
-Vi læser herefter 1000 bits fra filen ved hjælp af funktionen \textit{redsome()}. Denne funktion returnerer hvor mange bits der er blevet læst, hvilket vi benytter så vi ved hvor mange bits vi skal sende til clienten. Vi kan nemlig være sikker på at der altid vil blive læst til 1000 bits. 
+Vi læser herefter 1000 bytes fra filen ved hjælp af funktionen \textit{redsome()}. Denne funktion returnerer hvor mange bits der er blevet læst, hvilket vi benytter så vi ved hvor mange bits vi skal sende til clienten. Vi kan nemlig være sikker på at der altid vil blive læst til 1000 bytes. 
 Herefter tester vi for om vi har læst nogen data, hvis dette ikke er tilfældet forsøger vi igen. Hvis det er tilfældet sender vi dataerne vi har læst til clienten og tæller rest ned. 
 
 \begin{lstlisting}
