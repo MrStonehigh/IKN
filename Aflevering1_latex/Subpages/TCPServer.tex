@@ -21,7 +21,9 @@ Serveren skal kun kunne håndtere en client ad gangen.
 
 \section{TCP server}
 
-TCP er en protokol som benytter stabilitet dvs. en pakke der går tabt bliver automatisk forsøgt afsendt igen. TCP benytter desuden også ordnet levering dvs. pakkerne ankommer til modtageren i samme rækkefølge som de blev afsendt.
+TCP er en protokol som er pålidelig, da den opretter en fast forbindelse mellem server og klient, ved et såkaldt "handshake", før en overførsel initieres. 
+Det vil sige, at så snart en TCP forbindelse er oprettet, vil pakkerne der sendes ikke længere have brug for en modtager-adresse, men kan blot "dumpes" ned i den TCP-strøm som løber imellem klient og server. 
+TCP benytter desuden også ordnet levering dvs. pakkerne ankommer til modtageren i samme rækkefølge som de blev afsendt.
 
 Vi starter med at oprette en socket for at kunne kommunikere med clienten. \\
 
