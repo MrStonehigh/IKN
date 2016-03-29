@@ -87,8 +87,6 @@ clientsocket=socket(AF_INET, SOCK_STREAM, 0);
  */
 void receiveFile(string fileName, int sockfd)
 {
-	std::ofstream FileIn;
-	FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
 
 	int fileSize;
 	writeTextTCP(fileName, sockfd);
@@ -97,6 +95,8 @@ void receiveFile(string fileName, int sockfd)
 		{
 		error("File doesnt exist");
 		}
+	std::ofstream FileIn;
+	FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
 	cout << "Filesize: = " << fileSize << " Bytes" << endl;
 	char buffer[BUFSIZE];
 
