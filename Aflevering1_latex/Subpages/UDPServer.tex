@@ -47,7 +47,7 @@ getline(FileIn, file);
 
 FileIn er vores stream og file er den variable vi ønsker at ligge vores file over i. 
 
-Når dette er gjort sender vi vores file til client men funktionen. 
+Når dette er gjort sender vi vores file til client med funktionen. 
 \begin{lstlisting}
 	n = sendto(sock, file.c_str(), file.length()+1, 0, (struct sockaddr *) &cli_addr, client_size);
 \end{lstlisting}

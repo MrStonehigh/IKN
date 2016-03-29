@@ -33,19 +33,19 @@ sock = socket(AF_INET, SOCK_STREAM, 0);
 
 Vi binder serveren adresse og portnummer til socket'en. Vi benytter et fast portnummer som er 9000, for at gøre det lettere. 
 
-Herefter venter serveren på at clienten tager kontakt til serveren ved hjælp af TCP. Når clienten tager kontakt til severen oprettes en socket til den indkommende forbindelse. 
+Herefter venter serveren på at clienten tager kontakt til serveren ved hjælp af TCP. Når clienten tager kontakt til serveren oprettes en socket til den indkommende forbindelse. 
 
 \begin{lstlisting}
 newsock = accept(sock, (struct sockaddr *) &cli_addr, &client_size);
 \end{lstlisting}
 
-Herefter afventer serveren at clienten sender filnavnet som clienten ønsker at hente fra serveren. Serveren læser filnavnet fra clinten ved hjælp af funktionen \textit{readTextTCP()} fra det udleverede bibliotek LIB. 
+Herefter afventer serveren at clienten sender filnavnet som clienten ønsker at hente fra serveren. Serveren læser filnavnet fra clienten ved hjælp af funktionen \textit{readTextTCP()} fra det udleverede bibliotek LIB. 
 
 Hvis filen eksisterer kaldes funktionen \textit{sendFile()} ellers sender serveren en fejlmeddelse til clienten og lukker forbindelsen. 
 
 I det efterfølgende vil vi beskrive funktionen \textit{sendFile}. 
 
-Når serveren skal sende den efterspurgte fil. Starter vi med at sende filstørrelsen til clienten med TCP, således at clienten ved hvor mange bit den skal modtage. 
+Når serveren skal sende den efterspurgte fil. Starter vi med at sende filstørrelsen til clienten med TCP, således at clienten ved hvor mange byte den skal modtage. 
 
 Vi opretter en stream og åbner herefter den efterspurgte fil. Open funktionen tager to parametre et char array med filnavnet og flags som specificere om det er input eller output og hvilken operation vi benytter. 
 
@@ -75,5 +75,15 @@ while (rest > 0)
 }
 \end{lstlisting}
 
-Simon sætter billede ind og skriver tekst til billedet. :-)
+\clearpage
+Princippet ovenfor kan beskrives med følgende figur. 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\linewidth]{Pic/Loop}
+\caption{Loop 1000 bytes}
+\label{fig:Loop}
+\end{figure}
+
+Her ses at serveren sender 1000 bytes af gangen og når der er mindre end 1000 bytes tilbage sendes resten. 
+
 

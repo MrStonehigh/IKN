@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2857B73E-F847-4B02-9238-064979017E93}") = "Exercise9", "Exercise9\Exercise9.cproj", "{FF9AE133-B50F-45D9-A061-C57E71D562BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF9AE133-B50F-45D9-A061-C57E71D562BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF9AE133-B50F-45D9-A061-C57E71D562BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF9AE133-B50F-45D9-A061-C57E71D562BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF9AE133-B50F-45D9-A061-C57E71D562BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Exercise9\Exercise9.cproj
+	EndGlobalSection
+EndGlobal

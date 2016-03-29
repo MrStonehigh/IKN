@@ -24,13 +24,13 @@ For at kunne eksekvere filen, kræves det ligeledes at der sendes en ip-adresse 
 Syntaks for eksekvering af beskeden bliver dermed som ønsket:\\
 \textit{./file\_server <IP-ADRESSE><FIL-NAVN>} \\
 
-Da alle tre kommandoer tæller som et argument, sørger klienten allerførst for at verificere at der er et korrekt antal argumente:
+Da alle tre kommandoer tæller som et argument, sørger klienten allerførst for at verificere at der er et korrekt antal argumenter:
 
 \begin{lstlisting}
 	if(argc>3)
 	{
-	cout<<argv[1]<<argv[2]<<endl;
-	error("Invalid amount of arguments");
+		cout<<argv[1]<<argv[2]<<endl;
+		error("Invalid amount of arguments");
 	}
 \end{lstlisting}
 
@@ -43,7 +43,7 @@ For at benytte IP-adressen som skrives i kommandovinduet, indlæses anden plads 
 server = gethostbyname(argv[1]);
 if(server == NULL)
 {
-error("Host does not exist");
+	error("Host does not exist");
 }
 
 \end{lstlisting}
@@ -53,13 +53,13 @@ Herpå forbindes der til serveren, med dertil indbygget fejlsikring. Hvis der ik
 \begin{lstlisting}
 	if(connect(clientsocket,(struct sockaddr *) &serv_addr, sizeof(serv_addr))==-1)
 	{
-	error("Fejl ved forbindelse til server");
+		error("Fejl ved forbindelse til server");
 	}
 \end{lstlisting}
 
 Herfra anmodes der om at modtage en fil vha \textit{recieveFile()}.
 
-Da klienten skal anmode om en fil, og derfra modtage filen i 1000 bytes af gangen, er processen inddelt i flere dele.
+Da clienten skal anmode om en fil, og derfra modtage filen i 1000 bytes af gangen, er processen inddelt i flere dele.
 
 \begin{itemize}
 	\item Spørg serveren om filen findes
