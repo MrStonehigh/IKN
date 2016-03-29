@@ -61,7 +61,8 @@ int main(int argc, char *argv[])
     	error("Error on binding");
     }
    
-   
+   while(1)
+   {
     listen(sock,5); // Listing for an incomming connection. Queue size is 5. 
     client_size = sizeof(cli_addr); // Finding the client address' size
 	newsock = accept(sock, (struct sockaddr *) &cli_addr, &client_size); //Making af new socket from the incomming connection. 
@@ -79,11 +80,11 @@ int main(int argc, char *argv[])
 	}
 	cout << "File does exist" << endl;
 	sendFile(fileName, sizeTCP, newsock); // Calling function sendFile
+	fileName = "";
 	cout << "File send" << endl;
 	close(newsock); // closing new socket. 
 	cout << "Closing newsocket" << endl;
-
-	return 0;
+	}
 }
 
 /**
