@@ -1,5 +1,5 @@
 Name: LIB
 Description: 
 Version: 0.1
-Libs: -L"/root/Documents/IKN/Exercise9_1/LIB/bin/Debug" -l
-Cflags: -I"/root/Documents/IKN/Exercise9_1/LIB"
+Libs: -L"/home/ikn/Desktop/IKN/IKN/Exercise9/LIB/bin/Debug" -l
+Cflags: -I"/home/ikn/Desktop/IKN/IKN/Exercise9/LIB"
