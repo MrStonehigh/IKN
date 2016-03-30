@@ -31,7 +31,7 @@ Vi starter med at oprette en socket for at kunne kommunikere med clienten. \\
 sock = socket(AF_INET, SOCK_STREAM, 0);
 \end{lstlisting}
 
-Vi binder serveren adresse og portnummer til socket'en. Vi benytter et fast portnummer som er 9000, for at gøre det lettere. 
+Vi binder serverens adresse og portnummer til socket'en. Vi benytter et fast portnummer som er 9000, for at gøre det lettere. 
 
 Herefter venter serveren på at clienten tager kontakt til serveren ved hjælp af TCP. Når clienten tager kontakt til serveren oprettes en socket til den indkommende forbindelse. 
 
@@ -39,7 +39,7 @@ Herefter venter serveren på at clienten tager kontakt til serveren ved hjælp a
 newsock = accept(sock, (struct sockaddr *) &cli_addr, &client_size);
 \end{lstlisting}
 
-Herefter afventer serveren at clienten sender filnavnet som clienten ønsker at hente fra serveren. Serveren læser filnavnet fra clienten ved hjælp af funktionen \textit{readTextTCP()} fra det udleverede bibliotek LIB. 
+Herefter afventer serveren at clienten sender filnavnet, som clienten ønsker at hente fra serveren. Serveren læser filnavnet fra clienten ved hjælp af funktionen \textit{readTextTCP()} fra det udleverede bibliotek LIB. 
 
 Hvis filen eksisterer kaldes funktionen \textit{sendFile()} ellers sender serveren en fejlmeddelse til clienten og lukker forbindelsen. 
 
@@ -54,7 +54,7 @@ std::ifstream FileIn;
 FileIn.open(fileName.c_str(), std::ios::in | std::ios::binary);
 \end{lstlisting}
 
-Da vores filnvn er en string benytter vi c++ funktinen \textit{c\_str()} til konvertere strengen om til et char array. Vi har angivet at det er et input og at filen skal sendes i binære mode, hvilket var et krav til opgaven. 
+Da vores filnavn er en string benytter vi c++ funktinen \textit{c\_str()} til konvertere strengen om til et char array. Vi har angivet at det er et input og at filen skal sendes i binære mode, hvilket var et krav til opgaven. 
 
 Vi tjekker for om filen eksisterer og om den er blevet åbnet korrekt.
 Hvis dette er tilfældet begynder vi at sende data til clienten. Dette gør vi ved at oprette en variabel kaldet rest som indeholder filstørrelsen. 
