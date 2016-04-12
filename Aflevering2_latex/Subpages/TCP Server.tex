@@ -1,0 +1,20 @@
+\chapter{Socket programmering - TCP server}
+
+\section{Opgaveformulering}
+
+Der skal udvikles en server med support for en client ad gangen, som kan modtage
+en tekststreng fra en client. Serveren skal køre i en virtuel Linux-maskine.
+Tekststrengen skal indeholde et filnavn, eventuel ledsaget af en stiangivelse.
+Tilsammen skal informationen i tekststrengen udpege en fil af en vilkårlig
+type/størrelse i serveren, som en tilsluttet client ønsker at hente fra serveren. Hvis
+filen ikke findes skal serveren returnere en fejlmelding til client’en. Hvis filen findes
+skal den overføres fra server til client i segmenter på 1000 bytes ad gangen – indtil
+filen er overført fuldstændigt. Serverens portnummer skal være 9000. Serverapplikationen
+skal kunne startes fra en terminal med kommandoen:
+\#./file\_server (for C/C++ applikationers vedkommende)
+\#./file\_server.exe (for C\# applikationers vedkommende)
+\#python file\_server.py (for Python applikationers vedkommende)
+Serveren skal være iterativ, dvs. den skal ikke lukke ned når den har sendt en fil til en
+client. Den skal, efter endt filoverførsel, kunne håndtere en ny forespørgsel fra en
+client (samme client eller en anden client).
+Serveren skal kun kunne håndtere en client ad gangen.
