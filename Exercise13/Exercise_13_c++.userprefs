@@ -1,0 +1,26 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="LIB/lib.h">
+    <Files>
+      <File FileName="file_client/file_client.cpp" Line="1" Column="1" />
+      <File FileName="Link/Link.cpp" Line="17" Column="17" />
+      <File FileName="LIB/lib.h" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="file_client" expanded="True" />
+          <Node name="file_server" expanded="True" />
+          <Node name="LIB" expanded="True">
+            <Node name="lib.h" selected="True" />
+          </Node>
+          <Node name="Link" expanded="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

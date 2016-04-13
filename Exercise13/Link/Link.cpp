@@ -1,6 +1,8 @@
 #include <Link.h>
 #include <cstdio>
 
+
+
 namespace Link {
 
 /**
@@ -72,7 +74,9 @@ Link::~Link()
  */
 void Link::send(char buf[], short size)
 {
-	//TO DO Your own code 
+	char END='A',ESC='B',ESC_END[2]={'B','C'}, ESC_ESC[2]={'B','D'};
+
+	send_char(END);
 }
 
 /**
