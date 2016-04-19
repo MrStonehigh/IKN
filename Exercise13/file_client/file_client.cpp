@@ -6,6 +6,7 @@
 #include <Transport.h>
 #include <lib.h>
 #include <file_client.h>
+#include <iostream>
 
 /// <summary>
 /// The BUFSIZE
@@ -40,7 +41,31 @@ file_client::file_client(int argc, char **argv)
 /// </param>
 void file_client::receiveFile (std::string fileName, Transport::Transport *transport)
 {
-		// TO DO Your own code
+		int fileSize;
+	writeTextTCP(fileName, sockfd);
+	fileSize=getFileSizeTCP(sockfd);
+	if(fileSize == 0)
+		{
+			error("File doesnt exist");
+		}
+	std::ofstream FileIn;
+	FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
+	std::cout << "Filesize: = " << fileSize << " Bytes" << endl;
+	char buffer[BUFSIZE];
+
+	std::cout << "Message in transfer" << endl;
+
+	long rest = fileSize;
+
+	while (rest>0)
+	{
+		int count =read(sockfd,buffer,BUFSIZE);
+		FileIn.write(buffer,count);
+		rest-=count;
+	}
+
+	FileIn.close();
+	cout << "File Recieved "<< endl;
 }		
 
 /// <summary>

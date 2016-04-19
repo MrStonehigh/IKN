@@ -75,10 +75,10 @@ Link::~Link()
 void Link::send(char buf[], short size)
 {
 	char const END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-	int i=0,j=0;
+	int i=0,j=0,c=0;
 
-	char Message[size];
-	Message[0]=END;
+	char message[size];
+	message[0]=END;
 
 	while(size--)
 	{
@@ -86,33 +86,32 @@ void Link::send(char buf[], short size)
 		{
 			case END:
 				
-				while(buf[i++]!='\0') 
-					{
-						j++;
-					}
+					j=i;
+				while(buf[j++]!='\0') 
+					{}
+
 				for(j;i<j;j--)
 					{
-						buf[j+1]=buf[j];
+						message[j+1]=buf[j];
 					}
 
-				buf[i]=ESC;
-				buf[i+1]=ESC_END;
+				message[i]=ESC;
+				message[i+1]=ESC_END;
 				break;
 
 			case ESC:
 
-				while(buf[i]!='\0')
-					{
-						j++;
-					}
+				j=i;
+				while(buf[j++]!='\0') 
+					{}
+
 				for(j;i<j;j--)
 					{
-						buf[j+1]=buf[j];
+						message[j+1]=buf[j];
 					}
-
-				buf[i+1]<<1;
-				buf[i]=ESC;
-				buf[i]=ESC_ESC;
+						
+				message[i]=ESC;
+				message[i]=ESC_ESC;
 				break;
 
 			default:
@@ -137,9 +136,9 @@ void Link::send(char buf[], short size)
 short Link::receive(char buf[], short size)
 {
 	char const END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-	int i=0,j=0;
+	int i=0;
 
-	char Message[size];
+	char message[size];
 
 	while(1)
 	{	
@@ -152,22 +151,20 @@ short Link::receive(char buf[], short size)
 				switch(buf[i+1])
 					{
 						case ESC_END:
-						Message[j]=END;
-						j++;
+						message[i++]=END;
 						break;
 
 						case ESC_ESC:
-						Message[j]=ESC;
-						j++;
+						message[i++]=ESC;
 						break;
 					}
 					
 				default:
-				Message[j]=buf[i];
-				j++;
+				message[i++]=buf[i];
 				break;
 			}
 	}
+
 
 }
 
