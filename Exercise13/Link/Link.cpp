@@ -74,9 +74,55 @@ Link::~Link()
  */
 void Link::send(char buf[], short size)
 {
-	char END='A',ESC='B',ESC_END[2]={'B','C'}, ESC_ESC[2]={'B','D'};
+	char const END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
+	int i=0,j=0;
 
-	send_char(END);
+	char Message[size];
+	Message[0]=END;
+
+	while(size--)
+	{
+		switch(buf[i])
+		{
+			case END:
+				
+				while(buf[i++]!='\0') 
+					{
+						j++;
+					}
+				for(j;i<j;j--)
+					{
+						buf[j+1]=buf[j];
+					}
+
+				buf[i]=ESC;
+				buf[i+1]=ESC_END;
+				break;
+
+			case ESC:
+
+				while(buf[i]!='\0')
+					{
+						j++;
+					}
+				for(j;i<j;j--)
+					{
+						buf[j+1]=buf[j];
+					}
+
+				buf[i+1]<<1;
+				buf[i]=ESC;
+				buf[i]=ESC_ESC;
+				break;
+
+			default:
+
+				break;
+		}
+	}
+
+	//Sendes til den serielle port herfra?
+
 }
 
 /**
@@ -90,7 +136,39 @@ void Link::send(char buf[], short size)
  */
 short Link::receive(char buf[], short size)
 {
-	//TO DO Your own code
+	char const END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
+	int i=0,j=0;
+
+	char Message[size];
+
+	while(1)
+	{	
+		switch(buf[i])
+			{
+				case END:
+				break;
+
+				case ESC:
+				switch(buf[i+1])
+					{
+						case ESC_END:
+						Message[j]=END;
+						j++;
+						break;
+
+						case ESC_ESC:
+						Message[j]=ESC;
+						j++;
+						break;
+					}
+					
+				default:
+				Message[j]=buf[i];
+				j++;
+				break;
+			}
+	}
+
 }
 
 } /* namespace Link */
