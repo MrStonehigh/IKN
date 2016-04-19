@@ -79,7 +79,17 @@ namespace Transport
 	/// </param>
 	void Transport::send(const char buf[], short size)
 	{
-		// TO DO Your own code
+		while(receiveAck() == false)
+		{
+			for(int i = 0; i<size; i++)
+			{
+				buffer[4+i] = buf[i];
+			}
+
+			buffer[SEQNO] = seqNo;  //SEQNO = 2
+			buffer[TYPE] = DATA;  // TYPE = 3 and DATA = 0
+			checksum->calcChecksum(buffer, size+4);
+		}
 	}
 
 	/// <summary>
@@ -90,7 +100,24 @@ namespace Transport
 	/// </param>
 	short Transport::receive(char buf[], short size)
 	{
-		// TO DO Your own code
+		short n = 0;
+
+		n = link->receive(buffer,size);
+
+		while(receiveAck() == true)
+		{
+			 if(checksum->checkChecksum(buf, n) == true)
+			 {
+			 	for(int i = 4; i<size; i++)
+			 	{
+			 		buffer[i-4] = buf[i];
+			 	}
+			 }
+			 else
+		
+			return n-4; 	 				
+		}
+		
 	}
 }
 

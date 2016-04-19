@@ -1,5 +1,5 @@
 Name: Link
 Description: 
 Version: 0.1
-Libs: -L"/home/ikn/Desktop/IKN/IKN/Exercise13/Link/bin/Debug" -lLink
-Cflags: -I"/home/ikn/Desktop/IKN/IKN/Exercise13/Link"
+Libs: -L"/home/ikn/Desktop/IKN/Exercise13/Link/bin/Debug" -lLink
+Cflags: -I"/home/ikn/Desktop/IKN/Exercise13/Link"
