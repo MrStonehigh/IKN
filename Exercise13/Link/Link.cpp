@@ -77,8 +77,8 @@ void Link::send(char buf[], short size)
 	char const END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
 	int i=0,j=0,c=0;
 
-	char message[size];
-	message[0]=END;
+
+	v24Write(serialPort, END);
 
 	while(size--)
 	{
@@ -86,17 +86,17 @@ void Link::send(char buf[], short size)
 		{
 			case END:
 				
-					j=i;
+				j=i;
 				while(buf[j++]!='\0') 
 					{}
 
 				for(j;i<j;j--)
 					{
-						message[j+1]=buf[j];
+						buf[j+1]=buf[j];
 					}
-
-				message[i]=ESC;
-				message[i+1]=ESC_END;
+					s
+				buf[i]=ESC;
+				buf[i+1]=ESC_END;
 				break;
 
 			case ESC:
@@ -107,11 +107,11 @@ void Link::send(char buf[], short size)
 
 				for(j;i<j;j--)
 					{
-						message[j+1]=buf[j];
+						buf[j+1]=buf[j];
 					}
 						
-				message[i]=ESC;
-				message[i]=ESC_ESC;
+				buf[i]=ESC;
+				buf[i+1]=ESC_ESC;
 				break;
 
 			default:
@@ -120,7 +120,7 @@ void Link::send(char buf[], short size)
 		}
 	}
 
-	//Sendes til den serielle port herfra?
+	v24Write(serialPort, buf, size);
 
 }
 
@@ -136,36 +136,45 @@ void Link::send(char buf[], short size)
 short Link::receive(char buf[], short size)
 {
 	char const END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-	int i=0;
+	int i=0, rcvd=0;
 
-	char message[size];
+	char* message[size];
+	v24Read(serialPort, Message, size);
+
 
 	while(1)
 	{	
-		switch(buf[i])
+		switch(message[i])
 			{
 				case END:
-				break;
+					return rcvd;
+					break;
 
 				case ESC:
-				switch(buf[i+1])
+				switch(message[i+1])
 					{
 						case ESC_END:
-						message[i++]=END;
-						break;
+							buf[i++]=END;
+							rcvd++;
+							break;
 
 						case ESC_ESC:
-						message[i++]=ESC;
-						break;
+							buf[i++]=ESC;
+							rcvd++;
+							break;
+
+						default:
+							error("Error debytestuffing packet");
 					}
 					
 				default:
-				message[i++]=buf[i];
-				break;
-			}
+					buf[i++]=message[i];
+					rcvd++;
+					break;
+				}
 	}
 
-
+	return rcvd;
 }
 
 } /* namespace Link */

@@ -27,7 +27,14 @@
 /// </param>
 file_client::file_client(int argc, char **argv)
 {
-   	// TO DO Your own code
+	   	if(argc!=2)
+			{
+				error("Invalid amount of arguments");
+			}
+	transport= new Transport(BUFSIZE);
+			
+	receiveFile(argv[1],transport);
+
 }
 
 /// <summary>
@@ -41,8 +48,10 @@ file_client::file_client(int argc, char **argv)
 /// </param>
 void file_client::receiveFile (std::string fileName, Transport::Transport *transport)
 {
-		int fileSize;
-	writeTextTCP(fileName, sockfd);
+	char * file_requested[]=filename;
+
+	transport->recieve(buf,size);
+	//writeTextTCP(fileName, sockfd);
 	fileSize=getFileSizeTCP(sockfd);
 	if(fileSize == 0)
 		{
