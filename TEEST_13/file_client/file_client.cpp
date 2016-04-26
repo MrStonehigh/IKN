@@ -7,7 +7,7 @@
 #include <lib.h>
 #include <file_client.h>
 #include <iostream>
-
+using namespace std;
 /// <summary>
 /// The BUFSIZE
 /// </summary>
@@ -27,13 +27,21 @@
 /// </param>
 file_client::file_client(int argc, char **argv)
 {
-	   	if(argc!=2)
-			{
-				error("Invalid amount of arguments");
-			}
-	transport= new Transport(BUFSIZE);
-			
-	receiveFile(argv[1],transport);
+   	if(argc!=2)
+	{
+		error("Invalid amount of arguments");
+	}
+
+	Transport::Transport transport(BUFSIZE);// = new Transport(BUFSIZE);
+	char rcv[2*BUFSIZE];
+
+	int n=transport.receive(rcv,2*BUFSIZE); 
+
+	for(int i=0;i<n;i++)
+	{
+		std::cout<<"Recieved: " << rcv[i] << std::endl;
+	}	
+	//receiveFile(argv[1],transport);
 
 }
 
@@ -48,32 +56,7 @@ file_client::file_client(int argc, char **argv)
 /// </param>
 void file_client::receiveFile (std::string fileName, Transport::Transport *transport)
 {
-	char * file_requested[]=filename;
 
-	int fileSize=getFileSizeTCP(sockfd);
-	if(fileSize == 0)
-		{
-			error("File doesnt exist");
-			return;
-		}
-	std::ofstream FileIn;
-	FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
-	std::cout << "Filesize: = " << fileSize << " Bytes" << endl;
-	char buffer[BUFSIZE];
-
-	std::cout << "Message in transfer" << endl;
-
-	long rest = fileSize;
-
-	while (rest>0)
-	{
-		int count =transport->recieve(buf,size);
-		FileIn.write(buf,count);
-		rest-=count;
-	}
-
-	FileIn.close();
-	cout << "File Recieved "<< endl;
 }		
 
 /// <summary>
