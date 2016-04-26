@@ -79,17 +79,23 @@ namespace Transport
 	/// </param>
 	void Transport::send(const char buf[], short size)
 	{
-		while(receiveAck() == false)
+		for(int i = 0; i<size; i++)
 		{
-			for(int i = 0; i<size; i++)
-			{
-				buffer[4+i] = buf[i];
-			}
-
-			buffer[SEQNO] = seqNo;  //SEQNO = 2
-			buffer[TYPE] = DATA;  // TYPE = 3 and DATA = 0
-			checksum->calcChecksum(buffer, size+4);
+			buffer[4+i] = buf[i];
 		}
+
+		buffer[SEQNO] = seqNo;  //SEQNO = 2
+		buffer[TYPE] = DATA;  // TYPE = 3 and DATA = 0
+		checksum->calcChecksum(buffer, size+4);
+		while(1)
+		{
+			link->send(buffer, size+4);
+			if(receiveAck()==true)
+			{
+			break;
+			}
+		}
+		old_seqNo = DEFAULT_SEQNO;
 	}
 
 	/// <summary>
@@ -101,24 +107,26 @@ namespace Transport
 	short Transport::receive(char buf[], short size)
 	{
 		short n = 0;
+		bool receiveOk = false;
 
-		n = link->receive(buffer,size);
-
-		while(receiveAck() == true)
+		while(!receiveOk)
 		{
-			 if(checksum->checkChecksum(buf, n) == true)
-			 {
-			 	for(int i = 4; i<size; i++)
-			 	{
-			 		buffer[i-4] = buf[i];
-			 	}
-			 }
-			 else
-		
-			return n-4; 	 				
+			n = link->receive(buffer,size+4);
+			if(n>0)
+			{
+				receiveOk = checksum->checkChecksum(n);
+				sendAck(receiveOk);
+			}
 		}
-		
+
+		if(old_segNo == buffer[SEQNO])
+		{
+		 //Fejl gør noget her.
+		}
+		else
+		// Rigtigt gør noget her.
+
+
+		return n-4;
+
 	}
-}
-
-
