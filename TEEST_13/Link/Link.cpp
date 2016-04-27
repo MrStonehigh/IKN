@@ -73,10 +73,8 @@ Link::~Link()
 void Link::send(char buf[], short size)
 {
 	const unsigned char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-	int i=0,j=1;
+	int i=0,j=0;
 	unsigned char message[2*size]={'A'};
-
-
 
 	while(message[i]!=NULL)
 	{
@@ -118,7 +116,7 @@ void Link::send(char buf[], short size)
 short Link::receive(char buf[], short size)
 {
 	const char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-	int i=0, rcvd=0;
+	int i=0, rcvd=0, START_FLAG=0;
 
 	char message;
 	int message_int;
@@ -130,15 +128,23 @@ short Link::receive(char buf[], short size)
 		message_int=v24Getc(serialPort);
 		if(message_int==-1)
 		{
-			fputs("Error: v24Getc", stderr);
+			fputs("Error: v24Getc\n", stderr);
 		}
 		printf("DEBUG RECEIVE (int): %d\n",message_int);
 		message=(char) message_int;		
 		printf("DEBUG RECEIVE (char): %c\n",message);
+
+		if(message==END && START_FLAG==0)
+		{
+			START_FLAG=1;
+		}
+		else
+		{
 		switch(message)
 			{
 				case END:
-					return rcvd;
+					//return rcvd;
+					rcvd++;
 					break;
 
 				case ESC:
@@ -167,6 +173,7 @@ short Link::receive(char buf[], short size)
 					rcvd++;
 					break;
 				}
+			}
 	}
 
 	return rcvd;

@@ -36,6 +36,7 @@ file_client::file_client(int argc, char **argv)
 	char rcv[2*BUFSIZE];
 
 	int n=transport.receive(rcv,2*BUFSIZE); 
+	printf("DEBUG client: %d\n", n);
 
 	for(int i=0;i<n;i++)
 	{
