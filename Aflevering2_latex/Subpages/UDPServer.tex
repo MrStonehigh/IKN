@@ -1,0 +1,61 @@
+\chapter{UDP Server}
+
+\section{Opgaveformulering}
+
+Skriv en iterativ UDP-server med support for en client ad gangen, som kan modtage en forespørgsel fra en client.
+Forespørgslen fra client til server kan være en af to muligheder: ”U” eller ”L”. Om bogstaverne er lower case eller upper case skal være ligegyldigt.
+\begin{itemize}
+	\item Hvis serveren modtager et ”U” skal informationen i filen /proc/uptime
+	returneres til client. Denne fil indeholder aktuel information om den samlede
+	tid serveren har været kørende siden opstart.\\
+	
+	\item Hvis serveren modtager et ”L” skal informationen i filen /proc/loadavg
+	returneres til client. Denne fil indeholder aktuel information om serverens
+	CPU-load.
+\end{itemize}
+
+\section{UDP Server}
+ 
+UDP er en protokol som ikke giver garanti for at data kommer frem dvs. den er ustabil. UDP benytter ikke ordnet levering dvs. pakkerne ankommer ikke nødvendigvis i den rigtige rækkefølge til modtageren. 
+
+Ligesom vi gjorde ved TCP starter vi med at sætte en socket op. Vi benytter stadigvæk portnummer 9000 og binder dette til socket'en. 
+
+\begin{lstlisting}
+sock = socket(AF_INET, SOCK_DGRAM, 0);
+\end{lstlisting}
+
+Når vi opretter socket'en bruger vi parameteren \textit{SOCK\_DGRAM} i stedet for \textit{SOCK\_STREAM}, da vi nu benytter UDP i stedet for TCP. 
+
+Vi venter indtil vi modtager en besked fra clienten. Dette gøres med funktionen \textit{recvfrom}.
+
+\begin{lstlisting}
+n = recvfrom(sock,buffer,bufferSize,0, (struct sockaddr *) &cli_addr, &client_size);
+\end{lstlisting}
+
+
+Herefter laver vi en stream, som vi bruger til at åbne vores fil.
+
+Hvis vores besked indeholder U eller u åbner vi filen /proc/uptime hvorimod hvis beskeden indeholder L eller l åbner vi filen /proc/loadavg. Dette gøres ved at benytte en switch. 
+
+Hvis beskeden ikke indeholder U/u/L/l lukker serveren ned. 
+
+Vi læser vores fil med funktionen
+
+\begin{lstlisting}
+getline(FileIn, file);
+\end{lstlisting}
+
+FileIn er vores stream og file er den variable vi ønsker at ligge vores file over i. 
+
+Når dette er gjort sender vi vores file til client men funktionen. 
+\begin{lstlisting}
+	n = sendto(sock, file.c_str(), file.length()+1, 0, (struct sockaddr *) &cli_addr, client_size);
+\end{lstlisting}
+
+Vi laver vores string om til en char array med funktionen \textit{c\_str()} og grunden til at vi +1 til file.length() skyldes at vi skal have 0 terminering med. 
+
+Herefter lukker vi stream og vores socket. 
+
+
+
+

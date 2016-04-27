@@ -1,0 +1,31 @@
+\chapter{UDP Client}
+
+\section{Opgaveformulering}
+
+Skriv en UDP-client kørende i en anden laptop eller virtuel maskine, som kan sende
+et kommando i form af et bogstav ”U”, ”u”, ”L”, ”l” som indtastes af operatøren til
+UDP-serveren. Når svaret fra UDP-serveren (beskrevet i punkt 1) modtages,
+udskrives dette svar til UDP-client’s bruger. 
+
+
+\section{UDP Client}
+
+File\_client for UDP-protokollen kræver ikke at IP-adresse sendes direkte fra kommandolinjen, så som et designvalg, startes klienten bare og beder herpå om en IP-adresse som overførslen skal foregå fra. 
+
+Opsætningen af socket og serveradresse foregår derfra som tidligere. 
+
+Brugeren bedes derfra om at taste karakteren for den ønskede information der skal overføres. 
+
+Den indlæste karakter lægges i et char-array, som sendes med funktionen \textit{sendto}:
+
+\begin{lstlisting}
+	sendto(clientsocket,msg,BUFFLENGTH,0,(struct sockaddr*)&serv_addr, serv_length);
+\end{lstlisting}
+
+Herpå afventes serverens svar ved funktionen \textit{recvfrom}:
+
+\begin{lstlisting}
+	recvfrom(clientsocket,msg,BUFFLENGTH,0,(struct sockaddr*) &serv_addr, &serv_length);
+\end{lstlisting}
+
+Herpå udskrives den modtagne besked og klienten lukker.
