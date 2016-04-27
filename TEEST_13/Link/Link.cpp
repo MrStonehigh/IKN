@@ -82,20 +82,23 @@ void Link::send(char buf[], short size)
 
 	while(size--)
 	{
+		
 		switch(buf[i])
 		{
 			case END:
 				message[j++]=ESC;
 				message[j++]=ESC_END;
+				i++;
 				break;
 
 			case ESC:
 				message[j++]=ESC;
 				message[j++]=ESC_ESC;
+				i++;
 				break;
 
 			default:
-				message[j++]=buf[i];
+				message[j++]=buf[i++];
 				break;
 		}
 	}
@@ -150,7 +153,7 @@ short Link::receive(char buf[], short size)
 						}
 					
 				default:
-					buf[i++]=message[i];
+					buf[i++]=message[i++];
 					rcvd++;
 					break;
 				}

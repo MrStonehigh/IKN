@@ -11,7 +11,7 @@ using namespace std;
 /// <summary>
 /// The BUFSIZE
 /// </summary>
-#define BUFSIZE 1000
+#define BUFSIZE 10
 
 /// <summary>
 /// Initializes a new instance of the <see cref="file_client"/> class.
