@@ -79,6 +79,7 @@ namespace Transport
 	/// </param>
 	void Transport::send(const char buf[], short size)
 	{
+		int count = 0;
 		for(int i = 0; i<size; i++)
 		{
 			buffer[4+i] = buf[i];
@@ -87,14 +88,15 @@ namespace Transport
 		buffer[SEQNO] = seqNo;  //SEQNO = 2
 		buffer[TYPE] = DATA;  // TYPE = 3 and DATA = 0
 		checksum->calcChecksum(buffer, size+4);
-		while(1)
+		do
 		{
 			link->send(buffer, size+4);
-			if(receiveAck()==true)
+			count++;
+			if(count == 3)
 			{
 			break;
 			}
-		}
+		}while(receiveAck() == false);
 		old_seqNo = DEFAULT_SEQNO;
 	}
 
@@ -109,24 +111,21 @@ namespace Transport
 		short n = 0;
 		bool receiveOk = false;
 
-		while(!receiveOk)
+		while(!receiveOk || (old_seqNo == buffer[SEQNO]))
 		{
 			n = link->receive(buffer,size+4);
 			if(n>0)
 			{
-				receiveOk = checksum->checkChecksum(n);
+				receiveOk = checksum->checkChecksum(buffer,n);
 				sendAck(receiveOk);
 			}
+			if(old_seqNo != buffer[SEQNO])
+			{
+				memcpy(buf, buffer+4, n-4);
+			}
 		}
-
-		if(old_segNo == buffer[SEQNO])
-		{
-		 //Fejl gør noget her.
-		}
-		else
-		// Rigtigt gør noget her.
-
 
 		return n-4;
 
 	}
+}
