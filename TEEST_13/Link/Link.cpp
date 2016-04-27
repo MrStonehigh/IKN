@@ -99,10 +99,10 @@ void Link::send(char buf[], short size)
 				message[j++]=buf[i++];
 				break;
 		}
-		printf("DEBUG SEND: %c", message[i]);
+		printf("DEBUG SEND: %c\n", message[i]);
 	}
 		
-	v24Write(serialPort, message, j);
+	v24Putc(serialPort, message[i]);
 
 }
 
@@ -126,9 +126,15 @@ short Link::receive(char buf[], short size)
 
 	while(size--)
 	{	
+		
 		message_int=v24Getc(serialPort);
+		if(message_int==-1)
+		{
+			fputs("Error: v24Getc", stderr);
+		}
+		printf("DEBUG RECEIVE (int): %d\n",message_int);
 		message=(char) message_int;		
-		printf("DEBUG RECEIVE: %c",message);
+		printf("DEBUG RECEIVE (char): %c\n",message);
 		switch(message)
 			{
 				case END:
