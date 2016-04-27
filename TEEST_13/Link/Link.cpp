@@ -73,7 +73,7 @@ Link::~Link()
 void Link::send(char buf[], short size)
 {
 	const unsigned char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-	int i=0,j=0;
+	int i=0,j=1;
 	unsigned char message[2*size]={'A'};
 
 	while(message[i]!=NULL)
@@ -98,9 +98,10 @@ void Link::send(char buf[], short size)
 				break;
 		}
 		printf("DEBUG SEND: %c\n", message[i]);
+		v24Putc(serialPort, message[i]);
 	}
 		
-	v24Putc(serialPort, message[i]);
+	
 
 }
 
