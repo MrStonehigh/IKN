@@ -1,5 +1,0 @@
-Name: LIB
-Description: 
-Version: 0.1
-Libs: -L"/root/Git/IKN/TEEST_13/LIB/bin/Debug" -l
-Cflags: -I"/root/Git/IKN/TEEST_13/LIB"
