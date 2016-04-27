@@ -126,7 +126,8 @@ short Link::receive(char buf[], short size)
 	while(size--)
 	{	
 		message_int=v24Getc(serialPort);
-		message=(char) message_int;		
+		message=(char) message_int;
+		//fputs(message);		
 		switch(message)
 			{
 				case END:
