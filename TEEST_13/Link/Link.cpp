@@ -77,9 +77,7 @@ void Link::send(char buf[], short size)
 	unsigned char message[2*size]={'A'};
 
 
-	v24Write(serialPort, message, size);
-
-
+	j++;
 	while(size--)
 	{
 		
@@ -103,7 +101,7 @@ void Link::send(char buf[], short size)
 		}
 	}
 		
-	v24Write(serialPort, message, size);
+	v24Write(serialPort, message, j);
 
 }
 
@@ -121,22 +119,27 @@ short Link::receive(char buf[], short size)
 	const char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
 	int i=0, rcvd=0;
 
-	unsigned char message[size];
-	v24Read(serialPort, message, size);
+	char message;
+	//v24Read(serialPort, message, size);
+	int message_int;
 
 
 	while(size--)
 	{	
-		switch(message[i])
+		message_int=v24Getc(serialPort);
+		message=(char) message_int;		
+		switch(message)
 			{
 				case END:
 					return rcvd;
 					break;
 
 				case ESC:
-
-					switch(message[i+1])
+					message_int=v24Getc(serialPort);
+					message=(char) message_int;
+					switch(message)
 						{
+							
 							case ESC_END:
 								buf[i++]=END;
 								rcvd++;
@@ -153,7 +156,7 @@ short Link::receive(char buf[], short size)
 						}
 					
 				default:
-					buf[i++]=message[i++];
+					buf[i++]=message;
 					rcvd++;
 					break;
 				}

@@ -20,7 +20,8 @@ file_server::file_server ()
 	Transport::Transport transport(BUFSIZE);
 	char tester[]={'A','B','C'};
 
-	transport.send(tester,BUFSIZE);
+
+	transport.send(tester,3);
 }
 
 /// <summary>
