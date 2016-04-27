@@ -80,7 +80,7 @@ void Link::send(char buf[], short size)
 
 	while(message[i]!=NULL)
 	{
-		
+		printf("DEBUG SEND: %c",message[i]);
 		switch(buf[i])
 		{
 			case END:
@@ -127,7 +127,7 @@ short Link::receive(char buf[], short size)
 	{	
 		message_int=v24Getc(serialPort);
 		message=(char) message_int;
-		//fputs(message);		
+		printf("DEBUG RECEIVE: %d",message_int);		
 		switch(message)
 			{
 				case END:
