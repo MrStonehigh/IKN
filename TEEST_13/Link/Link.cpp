@@ -73,12 +73,12 @@ Link::~Link()
 void Link::send(char buf[], short size)
 {
 	const unsigned char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-	int i=0,j=0;
+	int i=0,j=1;
 	unsigned char message[2*size]={'A'};
 
 
-	j++;
-	while(size--)
+
+	while(message[i]!=NULL)
 	{
 		
 		switch(buf[i])
@@ -120,7 +120,6 @@ short Link::receive(char buf[], short size)
 	int i=0, rcvd=0;
 
 	char message;
-	//v24Read(serialPort, message, size);
 	int message_int;
 
 
