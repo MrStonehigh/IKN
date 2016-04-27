@@ -1,8 +1,6 @@
 #include <Link.h>
 #include <cstdio>
 
-
-
 namespace Link {
 
 /**
@@ -74,53 +72,35 @@ Link::~Link()
  */
 void Link::send(char buf[], short size)
 {
-	char const END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-	int i=0,j=0,c=0;
+	const unsigned char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
+	int i=0,j=0;
+	unsigned char message[2*size]={'A'};
 
 
-	v24Write(serialPort, END);
+	v24Write(serialPort, message, size);
+
 
 	while(size--)
 	{
 		switch(buf[i])
 		{
 			case END:
-				
-				j=i;
-				while(buf[j++]!='\0') 
-					{}
-
-				for(j;i<j;j--)
-					{
-						buf[j+1]=buf[j];
-					}
-					s
-				buf[i]=ESC;
-				buf[i+1]=ESC_END;
+				message[j++]=ESC;
+				message[j++]=ESC_END;
 				break;
 
 			case ESC:
-
-				j=i;
-				while(buf[j++]!='\0') 
-					{}
-
-				for(j;i<j;j--)
-					{
-						buf[j+1]=buf[j];
-					}
-						
-				buf[i]=ESC;
-				buf[i+1]=ESC_ESC;
+				message[j++]=ESC;
+				message[j++]=ESC_ESC;
 				break;
 
 			default:
-
+				message[j++]=buf[i];
 				break;
 		}
 	}
-
-	v24Write(serialPort, buf, size);
+		
+	v24Write(serialPort, message, size);
 
 }
 
@@ -135,14 +115,14 @@ void Link::send(char buf[], short size)
  */
 short Link::receive(char buf[], short size)
 {
-	char const END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
+	const char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
 	int i=0, rcvd=0;
 
-	char* message[size];
-	v24Read(serialPort, Message, size);
+	unsigned char message[size];
+	v24Read(serialPort, message, size);
 
 
-	while(1)
+	while(size--)
 	{	
 		switch(message[i])
 			{
@@ -151,21 +131,23 @@ short Link::receive(char buf[], short size)
 					break;
 
 				case ESC:
-				switch(message[i+1])
-					{
-						case ESC_END:
-							buf[i++]=END;
-							rcvd++;
-							break;
 
-						case ESC_ESC:
-							buf[i++]=ESC;
-							rcvd++;
-							break;
+					switch(message[i+1])
+						{
+							case ESC_END:
+								buf[i++]=END;
+								rcvd++;
+								break;
 
-						default:
-							error("Error debytestuffing packet");
-					}
+							case ESC_ESC:
+								buf[i++]=ESC;
+								rcvd++;
+								break;
+
+							default:
+								fputs("Error debytestuffing packet",stderr);
+								exit(1);
+						}
 					
 				default:
 					buf[i++]=message[i];

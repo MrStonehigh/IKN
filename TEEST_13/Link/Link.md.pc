@@ -1,0 +1,5 @@
+Name: Link
+Description: 
+Version: 0.1
+Libs: -L"/home/ikn/Desktop/IKN/IKN/TEEST_13/Link/bin/Debug" -lLink
+Cflags: -I"/home/ikn/Desktop/IKN/IKN/TEEST_13/Link"
