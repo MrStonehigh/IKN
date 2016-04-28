@@ -74,9 +74,11 @@ void Link::send(char buf[], short size)
 {
 	const unsigned char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
 	int i=0,j=1;
-	unsigned char message[2*size]={'A'};
+	unsigned char message[2*size];
 
-	while(message[i]!=NULL)
+	message[0]=END;
+
+	while(message[i] != NULL)
 	{
 		
 		switch(buf[i])
@@ -100,6 +102,8 @@ void Link::send(char buf[], short size)
 		printf("DEBUG SEND: %c\n", message[i]);
 		v24Putc(serialPort, message[i]);
 	}
+	printf("DEBUG SEND: last A send");
+	v24Putc(serialPort,END);
 		
 	
 
@@ -145,6 +149,7 @@ short Link::receive(char buf[], short size)
 			{
 				case END:
 					//return rcvd;
+					buf[i++];
 					rcvd++;
 					break;
 
