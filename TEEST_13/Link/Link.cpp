@@ -141,7 +141,7 @@ short Link::receive(char buf[], short size)
 		}
 		//printf("DEBUG RECEIVE (int): %d\n",message_int);
 		message=(char) message_int;		
-		printf("DEBUG RECEIVE (char): %c\n",message);
+		//printf("DEBUG RECEIVE (char): %c\n",message);
 
 		//Ignoring startbit
 		if(message==END && START_FLAG==0)
@@ -159,7 +159,7 @@ short Link::receive(char buf[], short size)
 					case ESC:
 						message_int_next=v24Getc(serialPort);
 						message_next=(char) message_int_next;
-						printf("DEBUG RECEIVE (char_next\n): %c\n",message_next);
+						//printf("DEBUG RECEIVE (char_next\n): %c\n",message_next);
 						switch(message_next)
 							{
 								
@@ -177,6 +177,7 @@ short Link::receive(char buf[], short size)
 									fputs("Error debytestuffing packet\n",stderr);
 									exit(1);
 							}
+						break;
 						
 					default:
 						buf[i++]=message;
