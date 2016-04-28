@@ -76,6 +76,7 @@ void Link::send(char buf[], short size)
 	int i=0,j=1;
 	unsigned char message[2*size];
 
+	//Sending startbit
 	message[0]=END;
 
 	while(message[i] != NULL)
@@ -102,7 +103,8 @@ void Link::send(char buf[], short size)
 		printf("DEBUG SEND: %c\n", message[i]);
 		v24Putc(serialPort, message[i]);
 	}
-	printf("DEBUG SEND: last A send");
+	//printf("DEBUG SEND: last A send");
+	//Sending stopbit
 	v24Putc(serialPort,END);
 		
 	
@@ -131,54 +133,55 @@ short Link::receive(char buf[], short size)
 	{	
 		
 		message_int=v24Getc(serialPort);
+
+		//Check for error from v24Getc()
 		if(message_int==-1)
 		{
 			fputs("Error: v24Getc\n", stderr);
 		}
-		printf("DEBUG RECEIVE (int): %d\n",message_int);
+		//printf("DEBUG RECEIVE (int): %d\n",message_int);
 		message=(char) message_int;		
-		printf("DEBUG RECEIVE (char): %c\n",message);
+		//printf("DEBUG RECEIVE (char): %c\n",message);
 
+		//Ignoring startbit
 		if(message==END && START_FLAG==0)
 		{
 			START_FLAG=1;
 		}
 		else
 		{
-		switch(message)
-			{
-				case END:
-					//return rcvd;
-					buf[i++];
-					rcvd++;
-					break;
+			switch(message)
+				{
+					case END:
+						return rcvd;
+						break;
 
-				case ESC:
-					message_int=v24Getc(serialPort);
-					message=(char) message_int;
-					switch(message)
-						{
-							
-							case ESC_END:
-								buf[i++]=END;
-								rcvd++;
-								break;
+					case ESC:
+						message_int=v24Getc(serialPort);
+						message=(char) message_int;
+						switch(message)
+							{
+								
+								case ESC_END:
+									buf[i++]=END;
+									rcvd++;
+									break;
 
-							case ESC_ESC:
-								buf[i++]=ESC;
-								rcvd++;
-								break;
+								case ESC_ESC:
+									buf[i++]=ESC;
+									rcvd++;
+									break;
 
-							default:
-								fputs("Error debytestuffing packet",stderr);
-								exit(1);
-						}
-					
-				default:
-					buf[i++]=message;
-					rcvd++;
-					break;
-				}
+								default:
+									fputs("Error debytestuffing packet",stderr);
+									exit(1);
+							}
+						
+					default:
+						buf[i++]=message;
+						rcvd++;
+						break;
+					}
 			}
 	}
 
