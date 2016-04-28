@@ -125,8 +125,8 @@ short Link::receive(char buf[], short size)
 	const char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
 	int i=0, rcvd=0, START_FLAG=0;
 
-	char message;
-	int message_int;
+	char message, message_intern;
+	int message_int, message_int_intern;
 
 
 	while(size--)
@@ -157,8 +157,8 @@ short Link::receive(char buf[], short size)
 						break;
 
 					case ESC:
-						message_int=v24Getc(serialPort);
-						message=(char) message_int;
+						message_int_intern=v24Getc(serialPort);
+						message_intern=(char) message_int_intern;
 						switch(message)
 							{
 								
@@ -181,8 +181,8 @@ short Link::receive(char buf[], short size)
 						buf[i++]=message;
 						rcvd++;
 						break;
-					}
-			}
+				}
+		}
 	}
 
 	return rcvd;
