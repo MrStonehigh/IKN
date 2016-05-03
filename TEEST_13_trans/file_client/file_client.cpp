@@ -7,6 +7,7 @@
 #include <lib.h>
 #include <file_client.h>
 #include <iostream>
+#include <Link.h>
 using namespace std;
 /// <summary>
 /// The BUFSIZE

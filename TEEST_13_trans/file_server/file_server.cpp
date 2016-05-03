@@ -6,6 +6,7 @@
 #include <Transport.h>
 #include <lib.h>
 #include <file_server.h>
+#include <Link.h>
 
 /// <summary>
 /// The BUFSIZE
