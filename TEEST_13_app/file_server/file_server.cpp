@@ -35,7 +35,7 @@ file_server::file_server ()
 	long fileSize = check_File_Exists(fileName);
 	if(fileSize == 0)
 	{
-		cout << "File does not exist" << endl;
+		error("File does not exist");
 	}
 	cout << "File does exist" << endl;
 	sendFile(fileName, fileSize, &transport);

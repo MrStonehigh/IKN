@@ -126,7 +126,7 @@ short Link::receive(char buf[], short size)
 		//Check for error from v24Getc()
 		if(message_int==-1)
 		{
-			fputs("Error: v24Getc\n", stderr);
+			//fputs("Error: v24Getc\n", stderr);
 		}
 		//printf("DEBUG RECEIVE (int): %d\n",message_int);
 		message=(char) message_int;		
