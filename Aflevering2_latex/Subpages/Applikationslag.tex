@@ -1,5 +1,40 @@
-\chapter{Aplikationslag}
+\chapter{Applikationslag}
 
 \section{Opgaveformulering}
 
+Der skal designes, implementeres og testes to applikationer, en client og en server.
+
+Førstnævnte kan anbringes i H1, sidstnævnte kan anbringes i H2.
+Den ene applikation (client) skal meddele serveren hvilken fil (evt. incl. sti-angivelse) der skal hentes.
+Den anden applikation (server) skal læse og sende filen til klienten i pakkestørrelser på 1000 bytes payload ad gangen.
+
+Client skal modtage disse pakker og gemme dem i en fil.
+Såvel server som client er nemme at realisere, idet disse ”applikationslagsapplikationer” allerede er udviklet i øvelse 8 (TCP-baseret client/server).
+
+I øvelse 8 blev der vha. anvendelse af socket-API udført kald som etablerede en connection, overførte filnavn, filstørrelse og fil mellem client og server. Disse kald skal i denne øvelse udskiftes med kald til et transportlaget i en protocol-stack, som I selv udvikler. 
+
+Client og server kan også have samme brugerflade som client-/server-applikationerne i øvelse 8 (TCP/IP-baseret filoverførsel).
+
+\section{File client}
+
+
+
+\section{File server}
+
+I stedet for at lave en socket, som vi gjorde i øvelse 8. Vi laver i stedet for en instants af vores Transport lag klasse. Dette gøres med koden 
+
+\begin{lstlisting}
+Transport::Transport transport(BUFSIZE);
+\end{lstlisting}
+
+
+
+
+
+ 
+
+
+
+
+ 
 
