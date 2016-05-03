@@ -20,7 +20,7 @@ file_server::file_server ()
 {
 	Transport::Transport transport(BUFSIZE);
 	const char tester[]={'A','B','C'};
-	printf("Sending message from app-layer:\n");
+	printf("Sending message from app-layer\n");
 
 	transport.send(tester,sizeof tester);
 }
