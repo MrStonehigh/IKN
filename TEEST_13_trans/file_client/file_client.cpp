@@ -34,14 +34,14 @@ file_client::file_client(int argc, char **argv)
 	}
 
 	Transport::Transport transport(BUFSIZE);// = new Transport(BUFSIZE);
-	char rcv[2*BUFSIZE];
+	char rcv[BUFSIZE];
 
-	int n=transport.receive(rcv,2*BUFSIZE); 
+	int n=transport.receive(rcv, BUFSIZE); 
 	//printf("DEBUG client: %d \n\n", n);
 
 	for(int i=0;i<n;i++)
 	{
-		std::cout<< "Recieved " << rcv[i] << std::endl;
+		std::cout<< "Recieved '" << rcv[i] << "'" <<std::endl;
 	}	
 	//receiveFile(argv[1],transport);
 

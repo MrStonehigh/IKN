@@ -3,6 +3,7 @@
 
 #define CHKSUMSIZE 2
 #define	ACKSIZE 4
+#define	HDRSIZE 4
 #define	CHKSUMHIGH 0
 #define	CHKSUMLOW 1
 #define	SEQNO 2

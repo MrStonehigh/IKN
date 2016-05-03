@@ -82,21 +82,21 @@ namespace Transport
 		int count = 0;
 		for(int i = 0; i<size; i++)
 		{
-			buffer[4+i] = buf[i];
+			buffer[HDRSIZE+i] = buf[i];
 		}
 
 		buffer[SEQNO] = seqNo;  //SEQNO = 2
 		buffer[TYPE] = DATA;  // TYPE = 3 and DATA = 0
-		checksum->calcChecksum(buffer, size+4);
+		checksum->calcChecksum(buffer, size+HDRSIZE);
 		do
 		{
-			link->send(buffer, size+4);
+			link->send(buffer, size+HDRSIZE);
 			count++;
 			if(count == 3)
 			{
 			break;
 			}
-		}while(receiveAck() == false);
+		}while(!receiveAck());
 		old_seqNo = DEFAULT_SEQNO;
 	}
 
@@ -113,7 +113,7 @@ namespace Transport
 
 		while(!receiveOk || (old_seqNo == buffer[SEQNO]))
 		{
-			n = link->receive(buffer,size+4);
+			n = link->receive(buffer,size+HDRSIZE);
 			if(n>0)
 			{
 				receiveOk = checksum->checkChecksum(buffer,n);
@@ -121,11 +121,11 @@ namespace Transport
 			}
 			if(old_seqNo != buffer[SEQNO])
 			{
-				memcpy(buf, buffer+4, n-4);
+				memcpy(buf, buffer+HDRSIZE, n-HDRSIZE);
 			}
 		}
 
-		return n-4;
+		return n-HDRSIZE;
 
 	}
 }

@@ -22,7 +22,7 @@ file_server::file_server ()
 	const char tester[]={'A','B','C'};
 	printf("Sending message from app-layer:\n");
 
-	transport.send(tester,BUFSIZE);
+	transport.send(tester,sizeof tester);
 }
 
 /// <summary>
