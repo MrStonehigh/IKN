@@ -139,7 +139,7 @@ short Link::receive(char buf[], short size)
 		{
 			fputs("Error: v24Getc\n", stderr);
 		}
-		//printf("DEBUG RECEIVE (int): %d\n",message_int);
+		printf("DEBUG RECEIVE (int): %d\n",message_int);
 		message=(char) message_int;		
 		//printf("DEBUG RECEIVE (char): %c\n",message);
 
