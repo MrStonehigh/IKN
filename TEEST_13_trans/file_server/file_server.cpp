@@ -38,7 +38,7 @@ file_server::file_server ()
 /// </param>
 void file_server::sendFile(std::string fileName, long fileSize, Transport::Transport *transport)
 {
-	// To do Your own code
+
 }
 
 /// <summary>
