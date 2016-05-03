@@ -12,7 +12,7 @@ using namespace std;
 /// <summary>
 /// The BUFSIZE
 /// </summary>
-#define BUFSIZE 10
+#define BUFSIZE 1000
 
 /// <summary>
 /// Initializes a new instance of the <see cref="file_client"/> class.
@@ -28,22 +28,11 @@ using namespace std;
 /// </param>
 file_client::file_client(int argc, char **argv)
 {
-   	if(argc!=2)
-	{
-		error("Invalid amount of arguments");
-	}
+   	
 
 	Transport::Transport transport(BUFSIZE);// = new Transport(BUFSIZE);
-	char rcv[BUFSIZE];
 
-	int n=transport.receive(rcv, BUFSIZE); 
-	//printf("DEBUG client: %d \n\n", n);
-
-	for(int i=0;i<n;i++)
-	{
-		std::cout<< "Recieved: '" << rcv[i] << "'" <<std::endl;
-	}	
-	//receiveFile(argv[1],transport);
+	receiveFile(argv[1],&transport);
 
 }
 
@@ -58,7 +47,36 @@ file_client::file_client(int argc, char **argv)
 /// </param>
 void file_client::receiveFile (std::string fileName, Transport::Transport *transport)
 {
+	char rcv[BUFSIZE];
+	transport.send(fileName, sizeof fileName);
 
+	int n=transport.receive(rcv, BUFSIZE);
+
+
+	long fileSize=atol(rcv);
+	if(fileSize == 0)
+		{
+		error("File doesnt exist");
+		}
+	cout << "Filesize: = " << fileSize << " Bytes" << endl;
+
+	std::ofstream FileIn;
+	FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
+
+	long rest=fileSize;
+	bzero(rcv,BUFSIZE);//fylder rcv med 0
+
+	while(rest>0)
+	{
+	int count=transport.receive(rcv, BUFSIZE);
+	FileIn.write(rcv,count);
+	rest-=count;
+
+	}
+
+	char buffer[BUFSIZE];
+	cout << "File received" << endl;
+	FileIn.close;
 }		
 
 /// <summary>
@@ -69,6 +87,10 @@ void file_client::receiveFile (std::string fileName, Transport::Transport *trans
 /// </param>
 int main(int argc, char** argv)
 {
+	if(argc!=2)
+	{
+		error("Invalid amount of arguments");
+	}
 	new file_client(argc, argv);
 	
 	return 0;
