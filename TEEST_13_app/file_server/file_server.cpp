@@ -29,17 +29,17 @@ file_server::file_server ()
 	{
 		cout << "Nothing received" << endl;
 	}
-	string fileName = string(buffer)
+	string fileName = string(buffer);
 	cout << "Getting Filename" << endl;
 	
-	long fileSize = check_File_Exists(fileName)
+	long fileSize = check_File_Exists(fileName);
 	if(fileSize == 0)
 	{
-		cout << "File does not exist"
+		cout << "File does not exist" << endl;
 	}
-	cout << "File does exist"
+	cout << "File does exist" << endl;
 	sendFile(fileName, fileSize, &transport);
-	Filename = "";
+	fileName = "";
 	cout << "File send" << endl;
 	
 }
@@ -60,7 +60,12 @@ void file_server::sendFile(std::string fileName, long fileSize, Transport::Trans
 {
 	const char* fileSendName = fileName.c_str();
 	char buffer[BUFSIZE];
-	
+
+	sprintf(buffer, "%ld", fileSize);
+	transport->send(buffer, sizeof buffer);
+
+	bzero(buffer,BUFSIZE);
+
 	std::ifstream FileIn; // setting up our stream
 	FileIn.open(fileName.c_str(), std::ios::in | std::ios::binary);
 	
@@ -71,7 +76,7 @@ void file_server::sendFile(std::string fileName, long fileSize, Transport::Trans
 	 		long rest = fileSize;
 	 		while (rest > 0)
 	 		{
-	 		   	int count = FileIn.readsome(buffer,bufferSize); // Reading file 
+	 		   	int count = FileIn.readsome(buffer,BUFSIZE); // Reading file 
 	 		   	if(count >= 0)
 	 		   	{
 					transport->send(buffer,count); // sending file
@@ -83,6 +88,7 @@ void file_server::sendFile(std::string fileName, long fileSize, Transport::Trans
 	 	error("Could not open file");
 		
 	}
+	FileIn.close();
 }
 
 /// <summary>
