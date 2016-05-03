@@ -72,42 +72,29 @@ Link::~Link()
  */
 void Link::send(const char buf[], short size)
 {
-	const unsigned char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-	int i=0,j=1;
-	unsigned char message[2*size];
+	const unsigned char  DELIMITER='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
 
 	//Sending startbit
-	message[0]=END;
+	v24Putc(serialPort, DELIMITER);
 
-	while(message[i] != NULL)
+	for(int i = 0; i < size; ++i)
 	{
-		
-		switch(buf[i])
+		if(buf[i] == DELIMITER)
 		{
-			case END:
-				message[j++]=ESC;
-				message[j++]=ESC_END;
-				i++;
-				break;
+			v24Putc(serialPort, ESC);
+			v24Putc(serialPort, ESC_END);
+		} 
+		else if(buf[i] == ESC) 
+		{
+			v24Putc(serialPort, ESC);
+			v24Putc(serialPort, ESC_ESC);
+		} 
+		else
+			v24Putc(serialPort, buf[i]);
 
-			case ESC:
-				message[j++]=ESC;
-				message[j++]=ESC_ESC;
-				i++;
-				break;
-
-			default:
-				message[j++]=buf[i++];
-				break;
-		}
-		printf("DEBUG SEND: %c\n", message[i]);
-		v24Putc(serialPort, message[i]);
 	}
-	//printf("DEBUG SEND: last A send");
-	//Sending stopbit
-	v24Putc(serialPort,END);
-		
-	
+
+	v24Putc(serialPort, DELIMITER);
 
 }
 
@@ -123,12 +110,14 @@ void Link::send(const char buf[], short size)
 short Link::receive(char buf[], short size)
 {
 	const char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-	int i=0, rcvd=0, START_FLAG=0;
+	int i=0, START_FLAG=0;
+	short rcvd=0;
 
 	char message, message_next;
 	int message_int, message_int_next;
 
 
+	//for(int i=0; i<size; i++)
 	while(size--)
 	{	
 		

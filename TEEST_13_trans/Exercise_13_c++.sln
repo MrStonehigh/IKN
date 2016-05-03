@@ -39,6 +39,6 @@ Global
 		{FF3FC4D4-9AD5-4232-A3D0-0DAEAD207F30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = file_client\file_client.cproj
+		StartupItem = file_server\file_server.cproj
 	EndGlobalSection
 EndGlobal

@@ -4,7 +4,7 @@
 
 #include <ezV24/ezV24.h>
 
-#define DELIMITER 'A'
+//#define DELIMITER 'A'
 
 namespace Link {
 
