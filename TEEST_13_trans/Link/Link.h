@@ -13,7 +13,7 @@ class Link
 public:
 	Link(int bufsize );
 	~Link();
-	void send( char [], short size);
+	void send(const char [], short size);
 	short receive(char buf[], short size);
 private:
 	Link( const Link &r){};

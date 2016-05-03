@@ -77,7 +77,7 @@ namespace Transport
 	/// <param name='size'>
 	/// Size.
 	/// </param>
-	void Transport::send( char buf[], short size)
+	void Transport::send(const char buf[], short size)
 	{
 		int count = 0;
 		for(int i = 0; i<size; i++)

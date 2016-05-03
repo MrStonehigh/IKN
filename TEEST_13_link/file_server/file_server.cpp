@@ -6,6 +6,7 @@
 #include <Transport.h>
 #include <lib.h>
 #include <file_server.h>
+#include <Link.h>
 
 /// <summary>
 /// The BUFSIZE
@@ -18,7 +19,7 @@
 file_server::file_server ()
 {
 	Transport::Transport transport(BUFSIZE);
-	char tester[]={'A','B','C'};
+	const char tester[]={'A','B','C'};
 	printf("Sending message from app-layer\n");
 
 	transport.send(tester,BUFSIZE);

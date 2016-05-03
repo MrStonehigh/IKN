@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <Transport.h>
 #include <TransConst.h>
+#include <Link.h>
 
 #define DEFAULT_SEQNO 2
 
@@ -77,7 +78,7 @@ namespace Transport
 	/// <param name='size'>
 	/// Size.
 	/// </param>
-	void Transport::send( char buf[], short size)
+	void Transport::send(const char buf[], short size)
 	{
 		link->send(buf,size);
 	}

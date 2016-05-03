@@ -70,7 +70,7 @@ Link::~Link()
  * @param buffer De bytes som skal sendes
  * @param size Antal bytes der skal sendes
  */
-void Link::send(char buf[], short size)
+void Link::send(const char buf[], short size)
 {
 	const unsigned char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
 	int i=0,j=1;

@@ -14,7 +14,7 @@ namespace Transport
 	public:
 		Transport(short BUFSIZE);
 		~Transport();
-		void send( char buf[], short size);
+		void send(const char buf[], short size);
 		short receive(char buf[], short size);
 	private:	
 		Link::Link *link;
