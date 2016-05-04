@@ -64,13 +64,11 @@ void file_client::receiveFile (std::string fileName, Transport::Transport *trans
 	std::ofstream FileIn;
 	FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
 
-	long rest=175692; //fileSize;
+	long rest=fileSize;
 	bzero(rcv,BUFSIZE);//fylder rcv med 0
-	cout << "1" << endl;
 	while(rest>0)
 	{
 		int count=transport->receive(rcv, BUFSIZE);
-		cout << "'" << count << "'" << endl;
 		FileIn.write(rcv,count);
 		rest-=count;
 	}

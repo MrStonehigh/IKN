@@ -61,7 +61,7 @@ void file_server::sendFile(std::string fileName, long fileSize, Transport::Trans
 	char buffer[BUFSIZE];
 	sprintf(buffer, "%ld",fileSize);
 	transport->send(buffer, strlen(buffer)+1);
-	cout << "'" << buffer <<"'" << endl;
+
 
 	bzero(buffer,BUFSIZE);
 
@@ -72,7 +72,6 @@ void file_server::sendFile(std::string fileName, long fileSize, Transport::Trans
 	{
 		if(FileIn.is_open()) // checking if file is open. 
 	 	{
-	 		cout << "1" << endl;
 	 		long rest = fileSize;
 	 		while (rest > 0)
 	 		{
