@@ -1,6 +1,6 @@
-/root/Git/IKN/TEEST_13_trans/Transport/bin/Debug/Transport.o: \
- /root/Git/IKN/TEEST_13_trans/Transport/Transport.cpp \
- /root/Git/IKN/TEEST_13_trans/Transport/Transport.h \
- /root/Git/IKN/TEEST_13_trans/Transport/../Link/Link.h \
- /root/Git/IKN/TEEST_13_trans/Transport/Checksum.h \
- /root/Git/IKN/TEEST_13_trans/Transport/TransConst.h
+/root/Documents/IKN/TEEST_13_app/Transport/bin/Debug/Transport.o: \
+ /root/Documents/IKN/TEEST_13_app/Transport/Transport.cpp \
+ /root/Documents/IKN/TEEST_13_app/Transport/Transport.h \
+ /root/Documents/IKN/TEEST_13_app/Transport/../Link/Link.h \
+ /root/Documents/IKN/TEEST_13_app/Transport/Checksum.h \
+ /root/Documents/IKN/TEEST_13_app/Transport/TransConst.h

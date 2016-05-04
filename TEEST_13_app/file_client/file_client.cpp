@@ -48,8 +48,7 @@ file_client::file_client(int argc, char **argv)
 void file_client::receiveFile (std::string fileName, Transport::Transport *transport)
 {
 	char rcv[BUFSIZE];
-	sprintf(rcv, "%ld", fileName);
-	transport->send(rcv, sizeof fileName);
+	transport->send(fileName.c_str(), fileName.length() +1);
 
 	bzero(rcv,BUFSIZE);
 	int n=transport->receive(rcv, BUFSIZE);

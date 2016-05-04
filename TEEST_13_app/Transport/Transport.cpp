@@ -124,6 +124,7 @@ namespace Transport
 				memcpy(buf, buffer+HDRSIZE, n-HDRSIZE);
 			}
 		}
+		old_seqNo = buffer[SEQNO];
 
 		return n-HDRSIZE;
 

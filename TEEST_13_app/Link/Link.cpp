@@ -26,7 +26,7 @@ Link::Link(int bufsize)
         exit(1);
     }
 
-    rc=v24SetTimeouts(serialPort,5);
+   rc=v24SetTimeouts(serialPort,5);
     if ( rc!=V24_E_OK )
     {
         fputs("error: setup of the port timeout failed!\n",stderr);

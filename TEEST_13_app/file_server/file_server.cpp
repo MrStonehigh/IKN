@@ -30,7 +30,7 @@ file_server::file_server ()
 		cout << "Nothing received" << endl;
 	}
 	string fileName = string(buffer);
-	cout << "Getting Filename" << endl;
+	cout << "Getting Filename " << "'" << fileName << "'" << endl;
 	
 	long fileSize = check_File_Exists(fileName);
 	if(fileSize == 0)
@@ -58,11 +58,10 @@ file_server::file_server ()
 /// </param>
 void file_server::sendFile(std::string fileName, long fileSize, Transport::Transport *transport)
 {
-	const char* fileSendName = fileName.c_str();
 	char buffer[BUFSIZE];
-
-	sprintf(buffer, "%ld", fileSize);
-	transport->send(buffer, sizeof buffer);
+	sprintf(buffer, "%ld",fileSize);
+	transport->send(buffer, strlen(buffer)+1);
+	cout << "'" << buffer <<"'" << endl;
 
 	bzero(buffer,BUFSIZE);
 
@@ -73,12 +72,14 @@ void file_server::sendFile(std::string fileName, long fileSize, Transport::Trans
 	{
 		if(FileIn.is_open()) // checking if file is open. 
 	 	{
+	 		cout << "1" << endl;
 	 		long rest = fileSize;
 	 		while (rest > 0)
 	 		{
 	 		   	int count = FileIn.readsome(buffer,BUFSIZE); // Reading file 
 	 		   	if(count >= 0)
 	 		   	{
+	 		   		cout << "'" << count << "'" << endl;
 					transport->send(buffer,count); // sending file
 					rest -= count;
 	 		    }
