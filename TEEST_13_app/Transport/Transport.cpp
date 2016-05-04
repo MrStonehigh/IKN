@@ -125,6 +125,10 @@ namespace Transport
 			}
 		}
 		old_seqNo = buffer[SEQNO];
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4f666dc10d832d87be96e10dadeea2c2a0f077f2
 		return n-HDRSIZE;
 
 	}
