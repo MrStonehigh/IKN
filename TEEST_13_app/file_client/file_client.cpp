@@ -48,12 +48,11 @@ file_client::file_client(int argc, char **argv)
 void file_client::receiveFile (std::string fileName, Transport::Transport *transport)
 {
 	char rcv[BUFSIZE];
-	sprintf(rcv, "%ld", fileName);
-	transport->send(rcv, sizeof fileName);
+	transport->send(fileName.c_str(), fileName.length() +1);
+
 
 	bzero(rcv,BUFSIZE);
-	int n=transport->receive(rcv, BUFSIZE);
-
+	long n=transport->receive(rcv, BUFSIZE);
 
 	long fileSize=atol(rcv);
 	if(fileSize == 0)
@@ -65,15 +64,15 @@ void file_client::receiveFile (std::string fileName, Transport::Transport *trans
 	std::ofstream FileIn;
 	FileIn.open(fileName.c_str(),std::ios::binary|std::ios::out);
 
-	long rest=fileSize;
+	long rest=175692; //fileSize;
 	bzero(rcv,BUFSIZE);//fylder rcv med 0
-
+	cout << "1" << endl;
 	while(rest>0)
 	{
-	int count=transport->receive(rcv, BUFSIZE);
-	FileIn.write(rcv,count);
-	rest-=count;
-
+		int count=transport->receive(rcv, BUFSIZE);
+		cout << "'" << count << "'" << endl;
+		FileIn.write(rcv,count);
+		rest-=count;
 	}
 
 	char buffer[BUFSIZE];
