@@ -17,7 +17,7 @@ Client og server kan også have samme brugerflade som client-/server-applikation
 
 \section{File client}
 
-
+I stedet for at lave en socket, som vi gjorde i øvelse 8. Vi laver i stedet for en instants af vores Transportlag klasse, og kalder så vores client receive funktion. Her starter vi med at sende den ønskede filsti til serveren, hvorefter vi modtager størrelsen på filen fra serveren. \\ Herefter starter en løkke, hvor vi modtager 1000bytes ad gangen fra transportlaget og gemmer dem i en fil på clienten.
 
 \section{File server}
 
