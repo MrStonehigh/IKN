@@ -60,8 +60,8 @@ void file_server::sendFile(std::string fileName, long fileSize, Transport::Trans
 {
 	char buffer[BUFSIZE];
 	sprintf(buffer, "%ld",fileSize);
-	transport->send(buffer, strlen(buffer)+1);
-
+	//transport->send(buffer, strlen(buffer)+1);
+	transport->send("123",4);
 
 	bzero(buffer,BUFSIZE);
 

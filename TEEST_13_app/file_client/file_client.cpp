@@ -53,7 +53,7 @@ void file_client::receiveFile (std::string fileName, Transport::Transport *trans
 
 	bzero(rcv,BUFSIZE);
 	long n=transport->receive(rcv, BUFSIZE);
-
+	cout << "rcv" <<  rcv << " " << n  << "slut" << endl;
 	long fileSize=atol(rcv);
 	if(fileSize == 0)
 		{
