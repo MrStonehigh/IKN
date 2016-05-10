@@ -26,13 +26,13 @@ Link::Link(int bufsize)
         exit(1);
     }
 
-   rc=v24SetTimeouts(serialPort,5);
+  /* rc=v24SetTimeouts(serialPort,5);
     if ( rc!=V24_E_OK )
     {
         fputs("error: setup of the port timeout failed!\n",stderr);
         v24ClosePort(serialPort);
         exit(1);
-    }
+    }*/
 
     rc=v24FlushRxQueue(serialPort);
     if ( rc!= V24_E_OK )
@@ -116,22 +116,13 @@ short Link::receive(char buf[], short size)
 	char message, message_next;
 	int message_int, message_int_next;
 
-
-	//for(int i=0; i<size; i++)
 	while(size--)
 	{	
-		
 		message_int=v24Getc(serialPort);
 
-		//Check for error from v24Getc()
-		if(message_int==-1)
-		{
-			//fputs("Error: v24Getc\n", stderr);
-		}
-		//printf("DEBUG RECEIVE (int): %d\n",message_int);
+		//Typecasting int to char
 		message=(char) message_int;		
-		//printf("DEBUG RECEIVE (char): %c\n",message);
-
+		
 		//Ignoring startbit
 		if(message==END && START_FLAG==0)
 		{
@@ -148,10 +139,8 @@ short Link::receive(char buf[], short size)
 					case ESC:
 						message_int_next=v24Getc(serialPort);
 						message_next=(char) message_int_next;
-						//printf("DEBUG RECEIVE (char_next\n): %c\n",message_next);
 						switch(message_next)
 							{
-								
 								case ESC_END:
 									buf[i++]=END;
 									rcvd++;

@@ -22,7 +22,6 @@ file_server::file_server ()
 	Transport::Transport transport(BUFSIZE);
 	char buffer[BUFSIZE];
 	
-	
 	bzero(buffer,BUFSIZE); // Saetter alle vaerdier til 0 i array. 
 	int n = transport.receive(buffer, BUFSIZE); 
 	if(n<0)
@@ -41,7 +40,6 @@ file_server::file_server ()
 	sendFile(fileName, fileSize, &transport);
 	fileName = "";
 	cout << "File send" << endl;
-	
 }
 
 /// <summary>
@@ -60,8 +58,7 @@ void file_server::sendFile(std::string fileName, long fileSize, Transport::Trans
 {
 	char buffer[BUFSIZE];
 	sprintf(buffer, "%ld",fileSize);
-	transport->send(buffer, strlen(buffer)+1);
-
+	transport->send(buffer, strlen(buffer));
 
 	bzero(buffer,BUFSIZE);
 
@@ -78,7 +75,6 @@ void file_server::sendFile(std::string fileName, long fileSize, Transport::Trans
 	 		   	int count = FileIn.readsome(buffer,BUFSIZE); // Reading file 
 	 		   	if(count >= 0)
 	 		   	{
-	 		   		cout << "'" << count << "'" << endl;
 					transport->send(buffer,count); // sending file
 					rest -= count;
 	 		    }

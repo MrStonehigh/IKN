@@ -28,12 +28,9 @@ using namespace std;
 /// </param>
 file_client::file_client(int argc, char **argv)
 {
-   	
-
 	Transport::Transport transport(BUFSIZE);// = new Transport(BUFSIZE);
 
 	receiveFile(argv[1],&transport);
-
 }
 
 /// <summary>
@@ -50,7 +47,6 @@ void file_client::receiveFile (std::string fileName, Transport::Transport *trans
 	char rcv[BUFSIZE];
 	transport->send(fileName.c_str(), fileName.length() +1);
 
-
 	bzero(rcv,BUFSIZE);
 	long n=transport->receive(rcv, BUFSIZE);
 
@@ -66,11 +62,15 @@ void file_client::receiveFile (std::string fileName, Transport::Transport *trans
 
 	long rest=fileSize;
 	bzero(rcv,BUFSIZE);//fylder rcv med 0
+
 	while(rest>0)
 	{
 		int count=transport->receive(rcv, BUFSIZE);
+		cout << "1" << endl;
 		FileIn.write(rcv,count);
+		cout << "2" << endl;
 		rest-=count;
+		cout << rest << endl;
 	}
 
 	char buffer[BUFSIZE];
