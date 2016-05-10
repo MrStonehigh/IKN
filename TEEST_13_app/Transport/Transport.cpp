@@ -46,7 +46,10 @@ namespace Transport
 				buf[SEQNO] != seqNo ||
 				buf[TYPE] != ACK)
 			return false;
-			
+
+		std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
+			(int)buf[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buf[TYPE] << std::endl;
+
 		seqNo = (buffer[SEQNO] + 1) % 2;
 			
 		return true;
@@ -64,6 +67,9 @@ namespace Transport
 		ackBuf [SEQNO] = (ackType ? buffer[SEQNO] : (buffer[SEQNO] + 1) % 2);
 		ackBuf [TYPE] = ACK;
 		checksum->calcChecksum (ackBuf, ACKSIZE);
+
+		std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
+			(int)ackBuf[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)ackBuf[TYPE] << std::endl;
 
 		link->send(ackBuf, ACKSIZE);
 	}
@@ -90,6 +96,8 @@ namespace Transport
 		checksum->calcChecksum(buffer, size+HDRSIZE);
 		do
 		{
+			std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
+				(int)buffer[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buffer[TYPE] << std::endl;
 			link->send(buffer, size+HDRSIZE);
 			count++;
 			if(count == 3)
@@ -111,17 +119,23 @@ namespace Transport
 		short n = 0;
 		bool receiveOk = false;
 
-		while(!receiveOk || (old_seqNo == buffer[SEQNO]))
+		//while(receiveOk == false || (old_seqNo == buffer[SEQNO]))
+		for(;;)
 		{
 			n = link->receive(buffer,size+HDRSIZE);
 			if(n>0)
 			{
+				std::cout << "Modtaget data " << n << std::endl;
 				receiveOk = checksum->checkChecksum(buffer,n);
+				std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
+					(int)buffer[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buffer[TYPE] << std::endl;
 				sendAck(receiveOk);
 			}
 			if(old_seqNo != buffer[SEQNO])
 			{
+				std::cout << "Sender data til applikationlag" << std::endl;
 				memcpy(buf, buffer+HDRSIZE, n-HDRSIZE);
+				break;
 			}
 		}
 		old_seqNo = buffer[SEQNO];

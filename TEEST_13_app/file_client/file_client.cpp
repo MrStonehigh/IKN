@@ -53,7 +53,7 @@ void file_client::receiveFile (std::string fileName, Transport::Transport *trans
 
 	bzero(rcv,BUFSIZE);
 	long n=transport->receive(rcv, BUFSIZE);
-	cout << "rcv" <<  rcv << " " << n  << "slut" << endl;
+
 	long fileSize=atol(rcv);
 	if(fileSize == 0)
 		{
@@ -66,11 +66,15 @@ void file_client::receiveFile (std::string fileName, Transport::Transport *trans
 
 	long rest=fileSize;
 	bzero(rcv,BUFSIZE);//fylder rcv med 0
+
 	while(rest>0)
 	{
 		int count=transport->receive(rcv, BUFSIZE);
+		cout << "1" << endl;
 		FileIn.write(rcv,count);
+		cout << "2" << endl;
 		rest-=count;
+		cout << rest << endl;
 	}
 
 	char buffer[BUFSIZE];

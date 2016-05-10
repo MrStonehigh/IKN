@@ -1,3 +1,3 @@
-/root/Git/IKN/TEEST_13_trans/LIB/bin/Debug/lib.o: \
- /root/Git/IKN/TEEST_13_trans/LIB/lib.cpp \
- /root/Git/IKN/TEEST_13_trans/LIB/lib.h
+/root/Documents/IKN/TEEST_13_app/LIB/bin/Debug/lib.o: \
+ /root/Documents/IKN/TEEST_13_app/LIB/lib.cpp \
+ /root/Documents/IKN/TEEST_13_app/LIB/lib.h
