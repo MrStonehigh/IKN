@@ -72,14 +72,14 @@ Link::~Link()
  */
 void Link::send(const char buf[], short size)
 {
-	const unsigned char  DELIMITER='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
+	const unsigned char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
 	v24FlushRxQueue(serialPort);
 	//Sending startbit
-	v24Putc(serialPort, DELIMITER);
+	v24Putc(serialPort, END);
 
 	for(int i = 0; i < size; ++i)
 	{
-		if(buf[i] == DELIMITER)
+		if(buf[i] == END)
 		{
 			v24Putc(serialPort, ESC);
 			v24Putc(serialPort, ESC_END);
@@ -94,7 +94,7 @@ void Link::send(const char buf[], short size)
 
 	}
 
-	v24Putc(serialPort, DELIMITER);
+	v24Putc(serialPort, END);
 
 }
 
@@ -114,31 +114,43 @@ short Link::receive(char buf[], short size)
 	short rcvd=0;
 
 	char message, message_next;
-	int message_int, message_int_next;
+	//int message_int, message_int_next;
 	v24FlushTxQueue(serialPort);
+
 	while(size--)
 	{	
-		message_int=v24Getc(serialPort);
+		message=(char)v24Getc(serialPort);
 
 		//Typecasting int to char
-		message=(char) message_int;		
-		
+	//	message=(char) message_int;		
 		//Ignoring startbit
 		if(message==END && START_FLAG==0)
 		{
 			START_FLAG=1;
 		}
+
+		else if(message==END && START_FLAG==1)
+		{
+			START_FLAG=0;
+			return rcvd;
+		}
+
+		/*if(message==ESC)
+		{
+			
+		}
+		*/
 		else
 		{
 			switch(message)
 				{
-					case END:
+					/*case END:
 						return rcvd;
-						break;
+						break;*/
 
 					case ESC:
-						message_int_next=v24Getc(serialPort);
-						message_next=(char) message_int_next;
+						message_next=(char)v24Getc(serialPort);
+						//message_next=(char) message_int_next;
 						switch(message_next)
 							{
 								case ESC_END:
@@ -155,7 +167,7 @@ short Link::receive(char buf[], short size)
 									fputs("Error debytestuffing packet\n",stderr);
 									exit(1);
 							}
-						break;
+						//break;
 						
 					default:
 						buf[i++]=message;

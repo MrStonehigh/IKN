@@ -1,5 +1,5 @@
 Name: LIB
 Description: 
 Version: 0.1
-Libs: -L"/root/Documents/IKN/TEEST_13_app/LIB/bin/Debug" -l
-Cflags: -I"/root/Documents/IKN/TEEST_13_app/LIB"
+Libs: -L"/home/ikn/Desktop/IKN/IKN/TEEST_13_app/LIB/bin/Debug" -l
+Cflags: -I"/home/ikn/Desktop/IKN/IKN/TEEST_13_app/LIB"
