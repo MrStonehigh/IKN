@@ -73,7 +73,7 @@ Link::~Link()
 void Link::send(const char buf[], short size)
 {
 	const unsigned char  DELIMITER='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
-
+	v24FlushRxQueue(serialPort);
 	//Sending startbit
 	v24Putc(serialPort, DELIMITER);
 
@@ -115,7 +115,7 @@ short Link::receive(char buf[], short size)
 
 	char message, message_next;
 	int message_int, message_int_next;
-
+	v24FlushTxQueue(serialPort);
 	while(size--)
 	{	
 		message_int=v24Getc(serialPort);

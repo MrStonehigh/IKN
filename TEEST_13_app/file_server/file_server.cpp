@@ -29,7 +29,7 @@ file_server::file_server ()
 		cout << "Nothing received" << endl;
 	}
 	string fileName = string(buffer);
-	cout << "Getting Filename " << "'" << fileName << "'" << endl;
+	cout << "Getting Filename " << "'" << fileName << "'" << fileName.length() << endl;
 	
 	long fileSize = check_File_Exists(fileName);
 	if(fileSize == 0)
