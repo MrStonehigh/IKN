@@ -167,7 +167,7 @@ short Link::receive(char buf[], short size)
 									fputs("Error debytestuffing packet\n",stderr);
 									exit(1);
 							}
-						//break;
+						break;
 						
 					default:
 						buf[i++]=message;
