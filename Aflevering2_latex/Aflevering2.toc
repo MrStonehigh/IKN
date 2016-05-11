@@ -4,7 +4,7 @@
 \contentsline {chapter}{\chapternumberline {1}Link lag}{3}{chapter.1}
 \contentsline {section}{\numberline {1.1}Opgaveformulering}{3}{section.1.1}
 \contentsline {section}{\numberline {1.2}Send funktion}{3}{section.1.2}
-\contentsline {section}{\numberline {1.3}Receive funktion}{3}{section.1.3}
+\contentsline {section}{\numberline {1.3}Receive funktion}{4}{section.1.3}
 \contentsline {chapter}{\chapternumberline {2}Transportlag}{5}{chapter.2}
 \contentsline {section}{\numberline {2.1}Opgaveformulering}{5}{section.2.1}
 \contentsline {section}{\numberline {2.2}Send funktion}{5}{section.2.2}
@@ -16,6 +16,6 @@
 \contentsline {chapter}{\chapternumberline {4}Resultat}{8}{chapter.4}
 \contentsline {chapter}{\chapternumberline {5}Kode}{9}{chapter.5}
 \contentsline {section}{\numberline {5.1}Linklag}{9}{section.5.1}
-\contentsline {section}{\numberline {5.2}Transportlag}{11}{section.5.2}
+\contentsline {section}{\numberline {5.2}Transportlag}{10}{section.5.2}
 \contentsline {section}{\numberline {5.3}Applikationslag Client}{12}{section.5.3}
 \contentsline {section}{\numberline {5.4}Applikationslag Server}{13}{section.5.4}
