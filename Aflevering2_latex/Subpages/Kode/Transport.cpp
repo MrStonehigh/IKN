@@ -105,8 +105,6 @@ namespace Transport
 		checksum->calcChecksum(buffer, size+HDRSIZE);
 		do
 		{
-			//std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
-			//	(int)buffer[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buffer[TYPE] << std::endl;
 			link->send(buffer, size+HDRSIZE);
 			count++;
 			if(count == 3)
@@ -128,16 +126,12 @@ namespace Transport
 		short n = 0;
 		bool receiveOk = false;
 
-		//while(receiveOk == false || (old_seqNo == buffer[SEQNO]))
 		for(;;)
 		{
 			n = link->receive(buffer,size+HDRSIZE);
 			if(n>0)
 			{
-				//std::cout << "Modtaget data " << n << std::endl;
 				receiveOk = checksum->checkChecksum(buffer,n);
-				//std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
-				//	(int)buffer[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buffer[TYPE] << std::endl;
 				sendAck(receiveOk);
 			}
 			if(old_seqNo != buffer[SEQNO])

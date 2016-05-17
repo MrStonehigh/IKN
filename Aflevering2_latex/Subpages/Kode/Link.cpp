@@ -116,17 +116,12 @@ short Link::receive(char buf[], short size)
 	size=size*2;
 
 	char message, message_next;
-	//int message_int, message_int_next;
 	v24FlushTxQueue(serialPort);
 
 	while(size--)
 	{	
 		message=(char)v24Getc(serialPort);
 
-		//Typecasting int to char
-		//message=(char) message_int;	
-		//std::cout << "\n link message: " << message	<< std::endl;
-		//Ignoring startbit
 		if(message==END && START_FLAG==0)
 		{
 			START_FLAG=1;
@@ -137,23 +132,13 @@ short Link::receive(char buf[], short size)
 			START_FLAG=0;
 			return rcvd;
 		}
-
-		/*if(message==ESC)
-		{
-			
-		}
-		*/
 		else
 		{
 			switch(message)
 				{
-					/*case END:
-						return rcvd;
-						break;*/
 
 					case ESC:
 						message_next=(char)v24Getc(serialPort);
-						//message_next=(char) message_int_next;
 						switch(message_next)
 							{
 								case ESC_END:

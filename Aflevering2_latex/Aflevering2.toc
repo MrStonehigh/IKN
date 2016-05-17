@@ -16,6 +16,6 @@
 \contentsline {chapter}{\chapternumberline {4}Resultat}{9}{chapter.4}
 \contentsline {chapter}{\chapternumberline {5}Kode}{10}{chapter.5}
 \contentsline {section}{\numberline {5.1}Linklag}{10}{section.5.1}
-\contentsline {section}{\numberline {5.2}Transportlag}{11}{section.5.2}
+\contentsline {section}{\numberline {5.2}Transportlag}{12}{section.5.2}
 \contentsline {section}{\numberline {5.3}Applikationslag Client}{13}{section.5.3}
-\contentsline {section}{\numberline {5.4}Applikationslag Server}{14}{section.5.4}
+\contentsline {section}{\numberline {5.4}Applikationslag Server}{15}{section.5.4}

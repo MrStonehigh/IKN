@@ -16,12 +16,11 @@ I øvelse 8 blev der vha. anvendelse af socket-API udført kald som etablerede e
 Client og server kan også have samme brugerflade som client-/server-applikationerne i øvelse 8 (TCP/IP-baseret filoverførsel).
 
 \section{File client}
-
-I stedet for at lave en socket, som vi gjorde i øvelse 8. Vi laver i stedet for en instants af vores Transportlag klasse, og kalder så vores client receive funktion. Her starter vi med at sende den ønskede filsti til serveren, hvorefter vi modtager størrelsen på filen fra serveren. \\ Herefter starter en løkke, hvor vi modtager 1000bytes ad gangen fra transportlaget og gemmer dem i en fil på clienten.
+ Vi laver en instants af vores Transportlag klasse, og kalder så vores client receive funktion. Her starter vi med at sende den ønskede filsti til serveren, hvorefter vi modtager størrelsen på filen fra serveren. \\ Herefter starter en løkke, hvor vi modtager 1000bytes ad gangen fra transportlaget og gemmer dem i en fil i rootmappen på clienten.
 
 \section{File server}
 
-Vi har genbrugt en del af applikationslaget fra øvelse 8. I stedet for at lave en socket, som vi gjorde i øvelse 8. Starter vi med at lave en instants af vores Transportlag klasse. Dette gøres med følgende kode: 
+Vi har genbrugt en del af applikationslaget fra øvelse 8. I stedet for at lave en socket, som vi gjorde i øvelse 8 Starter vi med at lave en instants af vores Transportlag klasse. Dette gøres med følgende kode: 
 
 \begin{lstlisting}
 Transport::Transport transport(BUFSIZE);
