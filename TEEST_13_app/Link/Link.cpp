@@ -112,6 +112,7 @@ short Link::receive(char buf[], short size)
 	const char  END='A', ESC='B',  ESC_END='C',  ESC_ESC='D';
 	int i=0, START_FLAG=0;
 	short rcvd=0;
+	size=size*2;
 
 	char message, message_next;
 	//int message_int, message_int_next;
