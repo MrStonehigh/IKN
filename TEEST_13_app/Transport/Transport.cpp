@@ -51,13 +51,13 @@ namespace Transport
 				buf[TYPE] != ACK)
 
 			{
-			std::cout << __PRETTY_FUNCTION__ << "ACK FAILURE: " << "buf[SEQNO] != seqNo - " << (int)buf[SEQNO] << ", " << (int)seqNo << "; chksum - " << 
-					checksum->checkChecksum(buf, ACKSIZE) << "; buf[TYPE] != ACK - " << (int)buf[TYPE] << ", " << (int)ACK << std::endl;
+			//std::cout << __PRETTY_FUNCTION__ << "ACK FAILURE: " << "buf[SEQNO] != seqNo - " << (int)buf[SEQNO] << ", " << (int)seqNo << "; chksum - " << 
+			//		checksum->checkChecksum(buf, ACKSIZE) << "; buf[TYPE] != ACK - " << (int)buf[TYPE] << ", " << (int)ACK << std::endl;
 				return false;
 			}
 
-		std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
-			(int)buf[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buf[TYPE] << std::endl;
+		//std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
+		//	(int)buf[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buf[TYPE] << std::endl;
 
 		seqNo = (buffer[SEQNO] + 1) % 2;
 			
@@ -77,8 +77,8 @@ namespace Transport
 		ackBuf [TYPE] = ACK;
 		checksum->calcChecksum (ackBuf, ACKSIZE);
 
-		std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
-			(int)ackBuf[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)ackBuf[TYPE] << std::endl;
+		//std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
+		//	(int)ackBuf[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)ackBuf[TYPE] << std::endl;
 
 		link->send(ackBuf, ACKSIZE);
 	}
@@ -105,8 +105,8 @@ namespace Transport
 		checksum->calcChecksum(buffer, size+HDRSIZE);
 		do
 		{
-			std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
-				(int)buffer[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buffer[TYPE] << std::endl;
+			//std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
+			//	(int)buffer[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buffer[TYPE] << std::endl;
 			link->send(buffer, size+HDRSIZE);
 			count++;
 			if(count == 3)
@@ -134,10 +134,10 @@ namespace Transport
 			n = link->receive(buffer,size+HDRSIZE);
 			if(n>0)
 			{
-				std::cout << "Modtaget data " << n << std::endl;
+				//std::cout << "Modtaget data " << n << std::endl;
 				receiveOk = checksum->checkChecksum(buffer,n);
-				std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
-					(int)buffer[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buffer[TYPE] << std::endl;
+				//std::cout << __PRETTY_FUNCTION__ << " -SeqNo:" << 
+				//	(int)buffer[SEQNO] << " (" << (int)old_seqNo << "), Type:" << (int)buffer[TYPE] << std::endl;
 				sendAck(receiveOk);
 			}
 			if(old_seqNo != buffer[SEQNO])
