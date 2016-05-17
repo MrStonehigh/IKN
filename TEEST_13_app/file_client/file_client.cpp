@@ -30,7 +30,8 @@ file_client::file_client(int argc, char **argv)
 {
 	Transport::Transport transport(BUFSIZE);// = new Transport(BUFSIZE);
 	cout << "\n argv 0: " << argv[0] << "\n argv 1: " << argv[1]<<  "\n argc: " << argc << endl;
-	receiveFile(argv[1],&transport);
+	string filename=argv[1];
+	receiveFile(filename,&transport);
 }
 
 /// <summary>
