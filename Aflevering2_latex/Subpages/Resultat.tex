@@ -1,12 +1,21 @@
 \chapter{Resultat}
 
-Vi tester vores program ved at clienten anmoder om et billede fra serveren. Dette gøres som vist på figur \ref{fig:testing}.
+Vi tester vores program ved at clienten anmoder om et billede fra serveren. Dette gøres som vist på figur \ref{fig:testing} hvor det også ses at billedet modtages korrekt.
 
 \begin{figure}[htbp]
 	\centering
-%	\includegraphics[width=1\linewidth]{Subpages/Billeder/testing}
-	\caption{Test af program}
+	\includegraphics[width=0.9\linewidth]{Subpages/Billeder/client_done}
+	\caption{Client anmoder om, og modtager filen}
 	\label{fig:testing}
 \end{figure}
 
-Vi ser at billedet er blevet overført og konkluderer derfor at vores program er en succes.
+På figur \ref{fig:testing_server} ser vi at serveren også melder at filen er sendt korrekt. %Det skal nævnes, at billedet som overføres ligger i rootmappen og overføres til root på client.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\linewidth]{Subpages/Billeder/server_done}
+	\caption{Serveren modtager forespørgelsen og sender filen}
+	\label{fig:testing_server}
+\end{figure}
+
+Vi ser at billedet er blevet overført til vores root mappe og konkluderer derfor at vores program er en succes.
