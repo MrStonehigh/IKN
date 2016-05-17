@@ -125,7 +125,7 @@ short Link::receive(char buf[], short size)
 
 		//Typecasting int to char
 		//message=(char) message_int;	
-		std::cout << "\n link message: " << message	<< std::endl;
+		//std::cout << "\n link message: " << message	<< std::endl;
 		//Ignoring startbit
 		if(message==END && START_FLAG==0)
 		{

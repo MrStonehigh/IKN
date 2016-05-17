@@ -32,6 +32,7 @@ file_server::file_server ()
 	cout << "Getting Filename " << "'" << fileName << "'" << fileName.length() << endl;
 	
 	long fileSize = check_File_Exists(fileName);
+	cout << fileSize << endl;
 	if(fileSize == 0)
 	{
 		error("File does not exist");
