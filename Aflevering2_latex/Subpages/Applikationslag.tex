@@ -21,14 +21,22 @@ I stedet for at lave en socket, som vi gjorde i øvelse 8. Vi laver i stedet for
 
 \section{File server}
 
-I stedet for at lave en socket, som vi gjorde i øvelse 8. Vi laver i stedet for en instants af vores Transport lag klasse. Dette gøres med koden 
+Vi har genbrugt en del af applikationslaget fra øvelse 8. I stedet for at lave en socket, som vi gjorde i øvelse 8. Starter vi med at lave en instants af vores Transportlag klasse. Dette gøres med følgende kode: 
 
 \begin{lstlisting}
 Transport::Transport transport(BUFSIZE);
 \end{lstlisting}
 
+Herefter kalder vi transport.recieve for at få vores filnavn sendt fra clienten, og tester ved hjælp af en if-statement om vi modtager noget fra clienten. 
 
+Vi tjekker om filen eksisterer ved hjælp af følgende kode:
 
+\begin{lstlisting}
+long fileSize = check_File_Exists(fileName);
+\end{lstlisting}
+
+Efterfølgende kalder vi vores send-funktion i applikationslaget, som tager argumenterne filnavn, filstørrelsen og reference til transportlaget. 
+I sendFile() starter vi med at sende størrelsen af filen. Herefter åbner vores fil med ifstream() ligesom i øvelse 8 og sender filen 1000 bytes ad gangen. 
 
 
  

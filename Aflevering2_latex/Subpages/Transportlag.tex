@@ -23,7 +23,7 @@ I vores send funktion modtager vi parameterene "const char buf[]" og "short size
 
 Vi starter med at tage den givne buffer, som indeholder vores data og lægger dataene over i en ny buffer, men nu reserverer vi de første 4 pladser i bufferen til vores header. 
 Vi har defineret en ny konstant kaldet HDRSIZE, som er størrelsen på headeren. Dette er gjort for at der ikke bliver skabt forvirring omkring ACKSIZE, som i vores tilfælde et det samme som header størrelsen. 
-Det gøres med koden:
+Vi reserverer de første 4 pladser i bufferen med koden:
 \begin{lstlisting}
 for(int i = 0; i<size; i++)
 {
@@ -37,13 +37,12 @@ Vi beregner Checksummen ved hjælp af funktionen
 \begin{lstlisting}
 checksum->calcChecksum(buffer, size+HDRSIZE);
 \end{lstlisting}
-Funktionen sørger både for at beregne checksummen, men også for at lægge den mest betydende el og mindst betydende del på henholdvis plads 0 og 1 i headeren.
+Funktionen sørger både for at beregne checksummen, men også for at lægge den mest betydende del og mindst betydende del på henholdvis plads 0 og 1 i headeren.
 
 Vi har lavet en do while løkke, som bliver kører så længe \textit{recieveAck er false}, hvilket betyder at vi ikke har modtaget den rigtige acknowledge. Løkken står for at sende bufferen videre til linklaget. 
 For at vores send funktionen ikke skal stå og sende ubegænset har vi implementeret en counter, som tæller op hver gang vi modtager en forkert acknowledge. Når vi har fået 3 fejl i træk, breaker vi ud af løkken. 
 
-Tilsidst sætter vi det gamle sekvensnummer til 2. 
-HVORFOR GØR VI DETTE?
+Tilsidst sætter vi det gamle sekvensnummer til 2.
 
 \section{Receive funktion}
 

@@ -13,9 +13,9 @@
 \contentsline {section}{\numberline {3.1}Opgaveformulering}{7}{section.3.1}
 \contentsline {section}{\numberline {3.2}File client}{7}{section.3.2}
 \contentsline {section}{\numberline {3.3}File server}{7}{section.3.3}
-\contentsline {chapter}{\chapternumberline {4}Resultat}{8}{chapter.4}
-\contentsline {chapter}{\chapternumberline {5}Kode}{9}{chapter.5}
-\contentsline {section}{\numberline {5.1}Linklag}{9}{section.5.1}
-\contentsline {section}{\numberline {5.2}Transportlag}{10}{section.5.2}
-\contentsline {section}{\numberline {5.3}Applikationslag Client}{12}{section.5.3}
-\contentsline {section}{\numberline {5.4}Applikationslag Server}{13}{section.5.4}
+\contentsline {chapter}{\chapternumberline {4}Resultat}{9}{chapter.4}
+\contentsline {chapter}{\chapternumberline {5}Kode}{10}{chapter.5}
+\contentsline {section}{\numberline {5.1}Linklag}{10}{section.5.1}
+\contentsline {section}{\numberline {5.2}Transportlag}{11}{section.5.2}
+\contentsline {section}{\numberline {5.3}Applikationslag Client}{13}{section.5.3}
+\contentsline {section}{\numberline {5.4}Applikationslag Server}{14}{section.5.4}
