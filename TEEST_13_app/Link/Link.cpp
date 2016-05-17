@@ -1,5 +1,6 @@
 #include <Link.h>
 #include <cstdio>
+#include <iostream>
 
 namespace Link {
 
@@ -123,7 +124,8 @@ short Link::receive(char buf[], short size)
 		message=(char)v24Getc(serialPort);
 
 		//Typecasting int to char
-	//	message=(char) message_int;		
+		//message=(char) message_int;	
+		std::cout << "\n link message: " << message	<< std::endl;
 		//Ignoring startbit
 		if(message==END && START_FLAG==0)
 		{
