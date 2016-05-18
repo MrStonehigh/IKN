@@ -55,13 +55,13 @@ n = link->receive(buffer,size+HDRSIZE);
 \end{lstlisting}
 Hvor n er størrelsen på bufferen vi modtager fra linklaget. Størrelsen bruges til at tjekket checksummen. 
 
-Vi tester med en if løkke om vi modtager noget og hvis det er tilfældet tjekker vi om checksummen er korrekt. 
+Vi tester med et if statement om vi modtager noget og hvis det er tilfældet tjekker vi om checksummen er korrekt. 
 
 Efter vi har tjekket check checksummen sender vi en acknowledge, som enten fortæller at checksummen var korrekt eller at den var forkert. 
 
 Vi tjekker yderlige at det gamle sekvensnummer \textit{old\_seqNo} er forskellige fra det nuværende sekevensnummer. Sekvensnummeret skifter fra 0 til 1 og tilbage hver gang en pakke er sendt. Derfor ved vi at hvis sekvensnumre ikke er forskellige får vi en forkert pakke.  
 
-Vi har implementeret det med en if løkke. 
+Vi har implementeret det med et if statement. 
 Er de to sekvensnumre er forskellige lægger vi den modtagende buffer og i en ny buffer, men nu uden headeren og returnerer størrelsen på den nye buffer.
 
 Det gøres fordi at headeren kun er til for at tjekke om vores data er sendt korrekt.  
